@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Treino">
+<meta name="theme-color" content="#1B2A3A">
+<title>Treino — Liberato (v6)</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone-192.png">
+<link rel="apple-touch-icon" href="icone-192.png">
+<style>
+:root{
+  --tinta:#16222E;
+  --tinta-clara:#4A5A68;
+  --papel:#F2EFE9;
+  --papel-alto:#FBFAF7;
+  --linha:#D6D0C5;
+  --azul:#1B4F7A;
+  --azul-fraco:#E3ECF3;
+  --verde:#2E6B3E;
+  --verde-fraco:#E4EFE5;
+  --ambar:#8A5A0B;
+  --ambar-fraco:#F7EEDC;
+  --vinho:#7A2233;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px;
+  line-height:1.45;
+  padding-bottom:90px;
+}
+
+/* ---------- CABEÇALHO ---------- */
+header{
+  background:var(--tinta);
+  color:var(--papel-alto);
+  padding:calc(env(safe-area-inset-top) + 14px) 16px 12px;
+  position:sticky;top:0;z-index:50;
+}
+header h1{margin:0;font-size:19px;font-weight:600;letter-spacing:.02em}
+header .sub{margin-top:2px;font-size:13px;color:#9FB0BE}
+
+/* ---------- ABAS ---------- */
+nav{
+  display:flex;background:var(--tinta);position:sticky;
+  top:calc(env(safe-area-inset-top) + 58px);z-index:49;
+  border-top:1px solid #2C3E4E;
+}
+nav button{
+  flex:1;background:none;border:none;color:#8FA3B3;
+  font-size:15px;font-weight:600;padding:13px 4px 11px;
+  font-family:inherit;cursor:pointer;border-bottom:3px solid transparent;
+}
+nav button.on{color:#fff;border-bottom-color:#C9A227;background:#22364A}
+nav button small{display:block;font-size:10px;font-weight:400;letter-spacing:.04em;margin-top:2px;opacity:.8}
+
+/* ---------- CONTEÚDO ---------- */
+main{padding:16px 12px}
+.aviso{
+  background:var(--ambar-fraco);border-left:4px solid var(--ambar);
+  padding:11px 13px;border-radius:0 6px 6px 0;font-size:14px;
+  color:#5C3E08;margin-bottom:16px;line-height:1.5;
+}
+.grupo{
+  font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--tinta-clara);margin:22px 0 9px;padding-bottom:5px;
+  border-bottom:2px solid var(--linha);
+}
+.grupo:first-of-type{margin-top:4px}
+
+/* ---------- CARTÃO DE EXERCÍCIO ---------- */
+.ex{
+  background:var(--papel-alto);border:1px solid var(--linha);
+  border-radius:9px;margin-bottom:13px;overflow:hidden;
+}
+.ex-topo{padding:13px 14px 11px}
+.ex-num{
+  display:inline-block;background:var(--tinta);color:#fff;
+  font-size:12px;font-weight:700;width:22px;height:22px;line-height:22px;
+  text-align:center;border-radius:4px;margin-right:8px;vertical-align:1px;
+}
+.ex-nome{font-size:17px;font-weight:600;display:inline}
+.ex-alvo{font-size:13px;color:var(--tinta-clara);margin-top:6px}
+.ex-meta{
+  display:inline-block;margin-top:9px;background:var(--azul-fraco);color:var(--azul);
+  font-size:13px;font-weight:700;padding:4px 11px;border-radius:5px;
+  font-variant-numeric:tabular-nums;
+}
+.ex-dica{
+  font-size:14px;color:#3E4C58;margin-top:10px;line-height:1.55;
+  background:var(--papel);padding:9px 11px;border-radius:6px;
+}
+.ex-dica b{color:var(--vinho)}
+.ex-video{
+  display:block;margin-top:10px;font-size:14px;color:var(--azul);
+  text-decoration:none;font-weight:600;padding:9px 12px;
+  border:1px solid var(--azul);border-radius:6px;text-align:center;
+}
+.ex-video:active{background:var(--azul-fraco)}
+
+/* ---------- SÉRIES ---------- */
+.series{border-top:1px solid var(--linha);background:var(--papel)}
+.serie-cab,.serie-lin{
+  display:grid;grid-template-columns:44px 1fr 1fr 78px;
+  align-items:center;gap:8px;padding:7px 14px;
+}
+.serie-cab{
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--tinta-clara);border-bottom:1px solid var(--linha);padding-top:9px;padding-bottom:7px;
+}
+.serie-lin{border-bottom:1px solid #E8E3DA}
+.serie-lin:last-child{border-bottom:none}
+.serie-n{font-size:14px;font-weight:700;color:var(--tinta-clara)}
+.series input{
+  width:100%;font-family:inherit;font-size:19px;font-weight:600;
+  text-align:center;padding:10px 4px;border:1px solid var(--linha);
+  border-radius:6px;background:#fff;color:var(--tinta);
+  font-variant-numeric:tabular-nums;-moz-appearance:textfield;
+}
+.series input::-webkit-outer-spin-button,
+.series input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.series input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px var(--azul-fraco)}
+.series input.recorde{border-color:var(--verde);background:var(--verde-fraco);color:var(--verde)}
+.ant{
+  font-size:12px;color:var(--tinta-clara);text-align:right;
+  font-variant-numeric:tabular-nums;line-height:1.3;
+}
+.ant b{color:var(--tinta);font-weight:600}
+
+/* ---------- RODAPÉ FIXO ---------- */
+.barra{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:var(--papel-alto);border-top:1px solid var(--linha);
+  padding:10px 12px calc(env(safe-area-inset-bottom) + 10px);
+}
+.barra .fila{display:flex;gap:8px}
+.barra .fila + .fila{margin-top:8px}
+.barra button{
+  flex:1;font-family:inherit;font-size:15px;font-weight:700;
+  padding:14px 6px;border-radius:8px;border:none;cursor:pointer;
+}
+.barra .fila + .fila button{font-size:13px;padding:11px 4px;font-weight:600}
+.b-salvar{background:var(--verde);color:#fff}
+.b-backup{background:var(--azul);color:#fff}
+.b-limpar{background:var(--papel);color:var(--tinta-clara);border:1px solid var(--linha)!important}
+.b-hist{background:var(--tinta);color:#fff;flex:0 0 108px}
+
+/* ---------- HISTÓRICO ---------- */
+.hist-item{
+  background:var(--papel-alto);border:1px solid var(--linha);border-radius:8px;
+  padding:12px 14px;margin-bottom:10px;font-size:14px;
+}
+.hist-item .d{font-weight:700;font-size:15px;margin-bottom:6px}
+.hist-item .l{color:var(--tinta-clara);font-variant-numeric:tabular-nums;line-height:1.6}
+.vazio{text-align:center;color:var(--tinta-clara);padding:40px 20px;font-size:15px}
+
+/* ---------- AVISO SALVO ---------- */
+/* ---------- ALERTA DE MEMÓRIA ---------- */
+#alerta{
+  display:none;background:#F7E4E4;border-left:5px solid var(--vinho);
+  padding:13px 14px;margin:0 0 16px;border-radius:0 6px 6px 0;
+  font-size:14px;color:#5E1622;line-height:1.55;
+}
+#alerta b{display:block;font-size:15px;margin-bottom:5px}
+#alerta.ver{display:block}
+
+/* ---------- SELO DE GRAVAÇÃO ---------- */
+#selo{
+  font-size:12px;color:var(--tinta-clara);text-align:center;
+  padding:2px 0 10px;font-variant-numeric:tabular-nums;
+}
+#selo.ok{color:var(--verde);font-weight:600}
+#selo.erro{color:var(--vinho);font-weight:700}
+
+/* ---------- ÁREA DE CÓPIA MANUAL ---------- */
+#copiar{display:none;padding:0 0 16px}
+#copiar.ver{display:block}
+#copiar textarea{
+  width:100%;height:150px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:11px;border:1px solid var(--linha);border-radius:7px;padding:10px;
+  background:#fff;color:var(--tinta);
+}
+
+#toast{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:96px;
+  background:var(--tinta);color:#fff;padding:11px 20px;border-radius:24px;
+  font-size:14px;font-weight:600;opacity:0;pointer-events:none;
+  transition:opacity .25s;z-index:70;
+}
+#toast.ver{opacity:1}
+
+.lembrete{background:var(--papel-alto);border:1px solid var(--linha);border-radius:6px;padding:9px 12px;font-size:14px;margin-bottom:6px;line-height:1.5}
+.chips{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+.chips .ex-meta{margin-top:0}
+.ex-pausa{display:inline-block;background:var(--papel);color:var(--tinta-clara);font-size:13px;font-weight:700;padding:4px 11px;border-radius:5px}
+details.tec{margin-top:11px;border:1px solid var(--linha);border-radius:7px;background:var(--papel)}
+details.tec summary{list-style:none;cursor:pointer;padding:11px 12px;font-size:14px;font-weight:700;color:var(--azul);display:flex;justify-content:space-between}
+details.tec summary::-webkit-details-marker{display:none}
+details.tec summary::after{content:'▾';transition:transform .2s}
+details.tec[open] summary::after{transform:rotate(180deg)}
+.tec-in{padding:0 12px 12px}
+.fig{background:var(--papel-alto);border-radius:6px;padding:8px 8px 6px;margin-bottom:10px;text-align:center}
+.fig svg{width:100%;max-width:260px;height:auto}
+.leg{font-size:12px;color:var(--tinta-clara);display:flex;gap:6px;align-items:center;justify-content:center}
+.leg span{display:inline-block;width:12px;height:12px;border-radius:3px;margin-left:6px}
+.bl{font-size:15px;line-height:1.5;margin-bottom:9px;padding:9px 11px;border-radius:6px;background:var(--papel-alto)}
+.bl b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--azul);margin-bottom:2px}
+.bl.erro{background:#F8ECEA}.bl.erro b{color:#A8322A}
+.bl.alt{background:transparent;border:1px dashed #9A9285}.bl.alt b{color:var(--tinta-clara)}
+.bl small{font-size:12px;color:var(--tinta-clara)}
+.vid-nota{font-size:12px;color:var(--tinta-clara);margin-top:6px;text-align:center;line-height:1.4}
+.sync{background:var(--papel-alto);border:1px solid var(--linha);border-radius:8px;padding:10px 13px;margin-bottom:12px;font-size:13px;color:var(--tinta-clara)}
+.sync a{color:var(--azul);font-weight:600}
+.sync input{width:100%;padding:9px;border:1px solid var(--linha);border-radius:6px;font-size:13px;margin-bottom:8px;font-family:inherit}
+.sync button{width:100%;padding:10px;border:none;border-radius:6px;background:var(--azul);color:#fff;font-weight:600;font-family:inherit;font-size:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v6</span></h1>
+  <div class="sub" id="hoje"></div>
+</header>
+
+<nav id="abas"></nav>
+
+<main>
+  <div id="alerta"></div>
+  <div id="selo"></div>
+  <div id="copiar">
+    <div style="font-size:14px;margin-bottom:7px">Toque no texto, selecione tudo e copie. Cole em um e-mail para si mesmo ou em um arquivo do Google Drive.</div>
+    <textarea id="copiar-txt" readonly onclick="this.select()"></textarea>
+    <button onclick="fecharCopia()" style="margin-top:8px;width:100%;font-family:inherit;font-size:14px;font-weight:600;padding:11px;border-radius:7px;border:1px solid var(--linha);background:var(--papel);color:var(--tinta);cursor:pointer">Fechar</button>
+  </div>
+  <div id="tela"></div>
+</main>
+
+<input type="file" id="arquivo" accept=".json,application/json" style="display:none" onchange="importarArquivo(this)">
+
+<div class="barra">
+  <div class="fila">
+    <button class="b-salvar" onclick="salvarSessao()">Salvar sessão</button>
+    <button class="b-hist" onclick="verHistorico()">Histórico</button>
+  </div>
+  <div class="fila">
+    <button class="b-backup" onclick="exportarBackup()">Backup (Drive)</button>
+    <button class="b-backup" onclick="exportarPlanilha()">Planilha</button>
+    <button class="b-limpar" onclick="document.getElementById('arquivo').click()">Restaurar</button>
+    <button class="b-limpar" onclick="limparDia()">Limpar</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ==================================================================
+   VERSÃO 6 — cartões técnicos integrados. PROGRAMA — sem barra livre. Ênfase: ombros (anterior/posterior)
+   e peitoral, sobretudo porção superior.
+   ================================================================== */
+const YT = t => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(t);
+const PROGRAMA = {
+ "A": {
+  "titulo": "Peito + Tríceps",
+  "dia": "Segunda",
+  "nota": "Prioridade: porção superior do peitoral — é ela que dá contorno ao peito.",
+  "blocos": [
+   {
+    "grupo": "Peito",
+    "exs": [
+     {
+      "n": "Supino máquina articulado",
+      "alvo": "Peitoral · tríceps · deltoide anterior",
+      "series": 4,
+      "meta": "4 × 8–10",
+      "pausa": "2 min",
+      "pri": [
+       "peito"
+      ],
+      "sec": [
+       "delt_ant",
+       "triceps"
+      ],
+      "dica": "Pegadores entre a clavícula e o mamilo. Escápulas travadas. Não trave os cotovelos.",
+      "erro": "Ombros saindo do encosto — a carga passa para a articulação.",
+      "alt": "Supino reto com halteres (carga moderada)",
+      "v": "supino máquina articulada execução correta"
+     },
+     {
+      "n": "Supino inclinado (máquina ou Smith)",
+      "alvo": "Peitoral superior",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "peito"
+      ],
+      "sec": [
+       "delt_ant",
+       "triceps"
+      ],
+      "dica": "Banco entre 30° e 45°. Desça até a parte alta do peito. O mais importante do dia.",
+      "erro": "Banco acima de 45° — vira treino de ombro.",
+      "alt": "Supino inclinado com halteres, 30°",
+      "v": "supino inclinado smith execução correta"
+     },
+     {
+      "n": "Voador (peck deck)",
+      "alvo": "Peitoral — isolamento",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "90 s",
+      "pri": [
+       "peito"
+      ],
+      "sec": [],
+      "dica": "Cotovelos na altura do peito. Junte os braços, segure 1 s, volte em 2–3 s.",
+      "erro": "Abrir demais na volta — estira a cápsula anterior do ombro.",
+      "alt": "Crucifixo com halteres no banco reto, amplitude curta",
+      "v": "voador peck deck execução correta"
+     },
+     {
+      "n": "Crossover na polia baixa",
+      "alvo": "Peitoral superior",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "peito"
+      ],
+      "sec": [
+       "delt_ant"
+      ],
+      "dica": "Polias embaixo; mãos sobem em arco até o queixo. Carga leve: exercício de contração, não de peso.",
+      "erro": "Usar o balanço do tronco para subir a carga.",
+      "alt": "Crossover na polia média, mãos à altura do peito",
+      "v": "crossover polia baixa peitoral superior"
+     }
+    ]
+   },
+   {
+    "grupo": "Tríceps",
+    "exs": [
+     {
+      "n": "Tríceps na polia — barra reta",
+      "alvo": "Tríceps",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "triceps"
+      ],
+      "sec": [],
+      "dica": "Cotovelos colados ao tronco. Só o antebraço se move.",
+      "erro": "Cotovelos avançando para frente — o ombro assume o trabalho.",
+      "alt": "Tríceps na polia com barra V",
+      "v": "tríceps polia barra execução correta"
+     },
+     {
+      "n": "Tríceps corda na polia",
+      "alvo": "Tríceps — cabeça lateral",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "triceps"
+      ],
+      "sec": [],
+      "dica": "Embaixo, abra as pontas da corda para fora e segure 1 s.",
+      "erro": "Encurtar o movimento para usar mais carga.",
+      "alt": "Tríceps unilateral na polia com pegador",
+      "v": "tríceps corda polia execução correta"
+     },
+     {
+      "n": "Tríceps francês na polia",
+      "alvo": "Tríceps — cabeça longa",
+      "series": 2,
+      "meta": "2 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "triceps"
+      ],
+      "sec": [],
+      "dica": "De costas para a polia, um pé à frente. Cotovelos apontados para frente e imóveis.",
+      "erro": "Arquear a lombar para compensar — reduza a carga.",
+      "alt": "Tríceps francês com 1 halter, sentado com encosto",
+      "v": "tríceps francês polia execução correta"
+     }
+    ]
+   }
+  ]
+ },
+ "B": {
+  "titulo": "Costas + Bíceps",
+  "dia": "Terça",
+  "nota": "Deltoide posterior é o ponto mais atrasado: recebe aqui a primeira das duas doses semanais.",
+  "blocos": [
+   {
+    "grupo": "Costas",
+    "exs": [
+     {
+      "n": "Puxada frontal na polia alta",
+      "alvo": "Grande dorsal · bíceps",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "biceps",
+       "delt_post"
+      ],
+      "dica": "Pegada um pouco mais aberta que os ombros. Puxe até o queixo, à frente do corpo. Peito para cima.",
+      "erro": "Puxar atrás da nuca — posição de risco para o ombro nesta idade.",
+      "alt": "Puxada com triângulo (pegada neutra) ou puxada articulada",
+      "v": "puxada frontal polia execução correta"
+     },
+     {
+      "n": "Remada sentada na polia baixa",
+      "alvo": "Dorsais · romboides · trapézio médio",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "biceps",
+       "delt_post",
+       "trap"
+      ],
+      "dica": "Coluna neutra. Leve os cotovelos para trás e junte as escápulas. Volte controlando.",
+      "erro": "Arredondar a lombar ao estender os braços.",
+      "alt": "Remada unilateral com halter, apoiado no banco",
+      "v": "remada sentada polia baixa execução correta"
+     },
+     {
+      "n": "Remada articulada na máquina",
+      "alvo": "Dorsais · trapézio",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "delt_post",
+       "trap"
+      ],
+      "dica": "Peito apoiado. Puxe com os cotovelos, não com as mãos. Segure 1 s.",
+      "erro": "Tirar o peito do apoio para ganhar impulso.",
+      "alt": "Remada unilateral no cabo, sentado",
+      "v": "remada máquina articulada execução correta"
+     },
+     {
+      "n": "Pullover na polia alta",
+      "alvo": "Grande dorsal — isolamento",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "triceps"
+      ],
+      "dica": "Cotovelos quase retos. Barra desce em arco até as coxas.",
+      "erro": "Dobrar os cotovelos — vira tríceps.",
+      "alt": "Pullover na polia alta com corda",
+      "v": "pullover polia alta execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Deltoide posterior",
+    "exs": [
+     {
+      "n": "Crucifixo inverso na máquina",
+      "alvo": "Deltoide posterior · romboides",
+      "series": 4,
+      "meta": "4 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_post"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Cotovelos na altura dos ombros. Abra puxando pelos cotovelos. Carga leve, controle total.",
+      "erro": "Carga excessiva: o trapézio assume e o posterior fica sem estímulo.",
+      "alt": "Crucifixo inverso nos cabos cruzados, polias na altura do ombro",
+      "v": "crucifixo inverso máquina execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Bíceps",
+    "exs": [
+     {
+      "n": "Rosca direta na polia baixa",
+      "alvo": "Bíceps",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "biceps"
+      ],
+      "sec": [
+       "antebraco"
+      ],
+      "dica": "Cotovelos junto ao corpo. Desça em 2–3 s.",
+      "erro": "Balançar o tronco para subir a carga.",
+      "alt": "Rosca alternada com halteres, sentado",
+      "v": "rosca direta polia baixa execução correta"
+     },
+     {
+      "n": "Rosca martelo com corda",
+      "alvo": "Braquial · braquiorradial",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "antebraco",
+       "biceps"
+      ],
+      "sec": [],
+      "dica": "Polegares para cima. Mais confortável para o punho e dá espessura ao braço.",
+      "erro": "Afastar os cotovelos do tronco.",
+      "alt": "Rosca martelo com halteres",
+      "v": "rosca martelo corda polia execução correta"
+     }
+    ]
+   }
+  ]
+ },
+ "C": {
+  "titulo": "Pernas + Abdome",
+  "dia": "Quinta",
+  "nota": "Tudo em máquinas: sem agachamento livre, coluna e equilíbrio protegidos.",
+  "blocos": [
+   {
+    "grupo": "Coxa — anterior",
+    "exs": [
+     {
+      "n": "Leg press 45°",
+      "alvo": "Quadríceps · glúteos",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "quad"
+      ],
+      "sec": [
+       "gluteo",
+       "isquio"
+      ],
+      "dica": "Pés na largura dos ombros, no meio da plataforma. Desça até 90° no joelho.",
+      "erro": "Deixar a lombar descolar do banco no fundo — é o erro que lesiona.",
+      "alt": "Hack machine ou leg press horizontal",
+      "v": "leg press 45 execução correta"
+     },
+     {
+      "n": "Cadeira extensora",
+      "alvo": "Quadríceps — isolamento",
+      "series": 4,
+      "meta": "4 × 12–15",
+      "pausa": "90 s",
+      "pri": [
+       "quad"
+      ],
+      "sec": [],
+      "dica": "Joelho alinhado ao eixo da máquina. Segure 1 s no topo, desça devagar.",
+      "erro": "Soltar o peso na descida — sobrecarga no tendão patelar.",
+      "alt": "Leg press com pés na parte baixa da plataforma",
+      "v": "cadeira extensora execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Coxa — posterior",
+    "exs": [
+     {
+      "n": "Mesa flexora",
+      "alvo": "Posterior de coxa",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "isquio"
+      ],
+      "sec": [
+       "pant"
+      ],
+      "dica": "Quadril colado no banco. A descida lenta é onde está o estímulo.",
+      "erro": "Levantar o quadril para completar a repetição.",
+      "alt": "Cadeira flexora sentada (e depois volte à mesa)",
+      "v": "mesa flexora execução correta"
+     },
+     {
+      "n": "Cadeira flexora sentada",
+      "alvo": "Posterior de coxa",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "isquio"
+      ],
+      "sec": [],
+      "dica": "Apoio logo acima do tornozelo. Ângulo diferente da mesa: complementa.",
+      "erro": "Amplitude curta por excesso de carga.",
+      "alt": "Mesa flexora (e depois volte à cadeira)",
+      "v": "cadeira flexora sentada execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Complementares",
+    "exs": [
+     {
+      "n": "Adutora e abdutora",
+      "alvo": "Adutores · glúteo médio",
+      "series": 3,
+      "meta": "3 × 15 cada",
+      "pausa": "60 s",
+      "pri": [
+       "adut",
+       "glut_med"
+      ],
+      "sec": [],
+      "dica": "Uma máquina em seguida da outra. Glúteo médio sustenta o equilíbrio do quadril.",
+      "erro": "Movimento rápido, batendo as placas.",
+      "alt": "Abdução e adução na polia baixa, com tornozeleira",
+      "v": "cadeira adutora abdutora execução correta"
+     },
+     {
+      "n": "Panturrilha no leg press",
+      "alvo": "Gastrocnêmio · sóleo",
+      "series": 4,
+      "meta": "4 × 15–20",
+      "pausa": "60 s",
+      "pri": [
+       "pant"
+      ],
+      "sec": [],
+      "dica": "Amplitude completa: alongue embaixo, pausa de 1 s em cima.",
+      "erro": "Meias repetições rápidas, sem alongar.",
+      "alt": "Panturrilha sentado na máquina",
+      "v": "panturrilha leg press execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Abdome",
+    "exs": [
+     {
+      "n": "Abdominal na máquina",
+      "alvo": "Reto abdominal",
+      "series": 3,
+      "meta": "3 × 15",
+      "pausa": "60 s",
+      "pri": [
+       "abd"
+      ],
+      "sec": [],
+      "dica": "Movimento curto, enrolando o tronco. Expire ao contrair.",
+      "erro": "Puxar com os braços ou com o pescoço.",
+      "alt": "Abdominal ajoelhado na polia alta com corda",
+      "v": "abdominal máquina execução correta"
+     },
+     {
+      "n": "Prancha isométrica",
+      "alvo": "Core — estabilizadores",
+      "series": 3,
+      "meta": "3 × 30–40 s",
+      "pausa": "60 s",
+      "pri": [
+       "abd"
+      ],
+      "sec": [
+       "delt_ant",
+       "gluteo"
+      ],
+      "dica": "Corpo em linha reta. Anote os segundos no lugar das repetições.",
+      "erro": "Prender a respiração — respire curto e contínuo.",
+      "alt": "Não depende de aparelho — nunca está ocupada",
+      "v": "prancha isométrica execução correta"
+     }
+    ]
+   }
+  ]
+ },
+ "D": {
+  "titulo": "Ombros + Trapézio",
+  "dia": "Sexta",
+  "nota": "As três porções do deltoide em separado. Sem elevação frontal: o anterior já trabalha em todo supino.",
+  "blocos": [
+   {
+    "grupo": "Deltoide anterior e lateral",
+    "exs": [
+     {
+      "n": "Desenvolvimento na máquina",
+      "alvo": "Deltoide anterior e lateral · tríceps",
+      "series": 4,
+      "meta": "4 × 8–10",
+      "pausa": "2 min",
+      "pri": [
+       "delt_ant"
+      ],
+      "sec": [
+       "delt_lat",
+       "triceps"
+      ],
+      "dica": "Costas apoiadas. Pegadores na altura das orelhas. Não trave os cotovelos no topo.",
+      "erro": "Descer abaixo da orelha com carga alta — estresse no manguito rotador.",
+      "alt": "Desenvolvimento com halteres, sentado com encosto, carga menor",
+      "v": "desenvolvimento ombros máquina execução correta"
+     },
+     {
+      "n": "Elevação lateral na máquina",
+      "alvo": "Deltoide lateral — largura",
+      "series": 4,
+      "meta": "4 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_lat"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Suba até a linha dos ombros, não acima. Cotovelo levemente dobrado.",
+      "erro": "Encolher os ombros ao subir — o trapézio rouba o movimento.",
+      "alt": "Elevação lateral com halteres ou unilateral na polia",
+      "v": "elevação lateral máquina execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Deltoide posterior",
+    "exs": [
+     {
+      "n": "Crucifixo inverso na máquina",
+      "alvo": "Deltoide posterior",
+      "series": 4,
+      "meta": "4 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_post"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Segunda dose da semana. Puxe pelos cotovelos, segure 1 s, volte devagar.",
+      "erro": "Mesma armadilha de terça: carga alta tira o posterior do exercício.",
+      "alt": "Crucifixo inverso nos cabos cruzados",
+      "v": "crucifixo inverso máquina execução correta"
+     },
+     {
+      "n": "Face pull na polia alta",
+      "alvo": "Deltoide posterior · rotadores",
+      "series": 3,
+      "meta": "3 × 15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_post"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Corda na altura do rosto. Puxe em direção à testa, girando os polegares para trás.",
+      "erro": "Puxar para o queixo — perde a rotação externa, que protege o ombro.",
+      "alt": "Crucifixo inverso nos cabos ou com halteres, peito apoiado em banco inclinado",
+      "v": "face pull polia execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Trapézio + Abdome",
+    "exs": [
+     {
+      "n": "Encolhimento na máquina",
+      "alvo": "Trapézio superior",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "trap"
+      ],
+      "sec": [],
+      "dica": "Movimento vertical puro, ombros às orelhas. Pausa de 1 s no topo.",
+      "erro": "Girar os ombros — atrita a articulação sem ganho algum.",
+      "alt": "Encolhimento com halteres",
+      "v": "encolhimento ombros máquina execução correta"
+     },
+     {
+      "n": "Abdominal na máquina",
+      "alvo": "Reto abdominal",
+      "series": 3,
+      "meta": "3 × 15",
+      "pausa": "60 s",
+      "pri": [
+       "abd"
+      ],
+      "sec": [],
+      "dica": "Enrole o tronco de forma controlada. Expire ao contrair.",
+      "erro": "Puxar com os braços.",
+      "alt": "Abdominal ajoelhado na polia alta com corda",
+      "v": "abdominal máquina execução correta"
+     }
+    ]
+   }
+  ]
+ }
+};
+
+
+/* ================= FIGURA MUSCULAR ================= */
+const F_BASE='#E6E1D8', F_SEC='#EDB9A6', F_PRI='#A8322A', F_TR='#B9B1A4';
+function figura(pri, sec){
+  const c = r => pri.includes(r) ? F_PRI : sec.includes(r) ? F_SEC : F_BASE;
+  const pl = pts => 'M' + pts.map(p => p.join(',')).join(' L') + ' Z';
+  const mi = pts => pts.map(([x,y]) => [100-x,y]);
+  const sp = (d,r) => `<path d="${d}" fill="${c(r)}" stroke="${F_TR}" stroke-width=".8"/>`;
+  const el = (cx,cy,rx,ry,r) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${c(r)}" stroke="${F_TR}" stroke-width=".8"/>`;
+  const neutro = `<circle cx="50" cy="15" r="10" fill="${F_BASE}" stroke="${F_TR}" stroke-width=".8"/><rect x="45" y="24" width="10" height="9" fill="${F_BASE}" stroke="${F_TR}" stroke-width=".8"/>` +
+    `<path d="${pl([[33,34],[67,34],[66,92],[62,100],[38,100],[34,92]])}" fill="${F_BASE}" stroke="${F_TR}" stroke-width=".8"/>`;
+  const peito=[[50,37],[35,37],[32,46],[34,56],[50,58]];
+  let fr = neutro + sp(pl(peito),'peito') + sp(pl(mi(peito)),'peito')
+   + el(21,42,4.5,8,'delt_lat') + el(79,42,4.5,8,'delt_lat') + el(28,43,6,8,'delt_ant') + el(72,43,6,8,'delt_ant')
+   + el(22,66,6,12,'biceps') + el(78,66,6,12,'biceps') + el(18,93,5,13,'antebraco') + el(82,93,5,13,'antebraco')
+   + `<rect x="41" y="61" width="18" height="33" rx="4" fill="${c('abd')}" stroke="${F_TR}" stroke-width=".8"/>`
+   + el(40,128,9,24,'quad') + el(60,128,9,24,'quad') + el(47.5,116,2.8,12,'adut') + el(52.5,116,2.8,12,'adut')
+   + el(40,172,5.5,16,'pant_f') + el(60,172,5.5,16,'pant_f');
+  const lat=[[47,50],[35,46],[32,58],[38,84],[47,88]];
+  let co = neutro + sp(pl([[50,24],[38,36],[50,60],[62,36]]),'trap') + sp(pl(lat),'dorsal') + sp(pl(mi(lat)),'dorsal')
+   + el(21,42,4.5,8,'delt_lat') + el(79,42,4.5,8,'delt_lat') + el(28,42,6,8,'delt_post') + el(72,42,6,8,'delt_post')
+   + el(22,65,6,12,'triceps') + el(78,65,6,12,'triceps') + el(18,93,5,13,'antebraco') + el(82,93,5,13,'antebraco')
+   + el(34,100,4,7,'glut_med') + el(66,100,4,7,'glut_med') + el(43,106,8,10,'gluteo') + el(57,106,8,10,'gluteo')
+   + el(41,136,8,20,'isquio') + el(59,136,8,20,'isquio') + el(40,172,6.5,15,'pant') + el(60,172,6.5,15,'pant');
+  return `<svg viewBox="0 0 210 200" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,2)">${fr}</g><g transform="translate(108,2)">${co}</g>` +
+    `<text x="50" y="198" font-size="10" text-anchor="middle" fill="#7A746A">frente</text><text x="158" y="198" font-size="10" text-anchor="middle" fill="#7A746A">costas</text></svg>`;
+}
+
+/* ================= ARMAZENAMENTO ================= */
+const K_ATUAL = 'lib_treino_v2_atual';
+const K_HIST  = 'lib_treino_v2_hist';
+
+/* Teste real de gravação: escreve, lê de volta e apaga. */
+let MEMORIA_OK = false;
+(function testar(){
+  try{
+    const t = '__teste__' + Date.now();
+    localStorage.setItem(t, '1');
+    MEMORIA_OK = localStorage.getItem(t) === '1';
+    localStorage.removeItem(t);
+  } catch(e){ MEMORIA_OK = false; }
+})();
+
+const ler = (k, p) => { try { return JSON.parse(localStorage.getItem(k)) ?? p; } catch(e){ return p; } };
+
+function gravar(k, v){
+  try{
+    localStorage.setItem(k, JSON.stringify(v));
+    if(localStorage.getItem(k) === null) throw new Error('não gravou');
+    MEMORIA_OK = true;
+    selo('Salvo às ' + horaAgora(), 'ok');
+    return true;
+  } catch(e){
+    MEMORIA_OK = false;
+    selo('NÃO SALVO — faça o backup antes de sair', 'erro');
+    mostrarAlerta();
+    return false;
+  }
+}
+
+function horaAgora(){
+  const d = new Date();
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+
+function selo(txt, cls){
+  const s = document.getElementById('selo');
+  s.textContent = txt;
+  s.className = cls || '';
+}
+
+function mostrarAlerta(){
+  const a = document.getElementById('alerta');
+  a.innerHTML = '<b>A memória do navegador está bloqueada</b>' +
+    'Este navegador não está guardando os dados. Registre o treino normalmente, mas ' +
+    '<b style="display:inline">antes de fechar a página toque em “Backup (Drive)”</b> — ' +
+    'sem isso os dados de hoje se perdem. Para resolver de vez, veja as instruções que acompanham o arquivo.';
+  a.classList.add('ver');
+}
+
+let atual = ler(K_ATUAL, {});
+let hist  = ler(K_HIST, []);
+
+/* Migração única: até a versão 5 o Dia D tinha a elevação frontal na posição 2.
+   Os registros antigos são realinhados e a elevação frontal fica guardada como "descontinuado". */
+const K_MIGR = 'lib_treino_v6_migrado';
+function migrarD(dados){
+  const novo = {}, extra = dados['1'];
+  const mapa = {'0':'0','2':'1','3':'2','4':'3','5':'4','6':'5'};
+  Object.keys(dados).forEach(k => { if(mapa[k] !== undefined) novo[mapa[k]] = dados[k]; });
+  return {novo, extra};
+}
+function migrarTudo(){
+  hist.forEach(s => {
+    if(s.dia !== 'D' || s.v >= 6) return;
+    const {novo, extra} = migrarD(s.dados || {});
+    s.dados = novo; s.v = 6;
+    if(extra && extra.some(x => x && (x.kg || x.reps))) s.extra = {'Elevação frontal na polia baixa (descontinuado)': extra};
+  });
+  if(atual.D){ atual.D = migrarD(atual.D).novo; }
+}
+if(!localStorage.getItem(K_MIGR)){
+  migrarTudo();
+  try{ localStorage.setItem(K_HIST, JSON.stringify(hist)); localStorage.setItem(K_ATUAL, JSON.stringify(atual)); localStorage.setItem(K_MIGR, '1'); }catch(e){}
+}
+let diaAtivo = 'A';
+let modoHistorico = false;
+const aberto = {};
+
+/* ================= DATA ================= */
+const DIAS = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+function dataHoje(){
+  const d = new Date();
+  return DIAS[d.getDay()] + ', ' + d.getDate() + ' de ' + MESES[d.getMonth()] + ' de ' + d.getFullYear();
+}
+function dataCurta(iso){
+  const d = new Date(iso);
+  return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
+}
+document.getElementById('hoje').textContent = dataHoje();
+
+/* ================= ABAS ================= */
+function montarAbas(){
+  document.getElementById('abas').innerHTML = Object.keys(PROGRAMA).map(d =>
+    `<button class="${d===diaAtivo && !modoHistorico ? 'on':''}" onclick="irPara('${d}')">
+       ${d}<small>${PROGRAMA[d].titulo.split(' + ')[0]}</small>
+     </button>`).join('');
+}
+function irPara(d){ diaAtivo = d; modoHistorico = false; montarAbas(); render(); window.scrollTo(0,0); }
+
+/* ================= MELHOR MARCA ================= */
+function melhorCarga(dia, ei){
+  let m = 0;
+  hist.forEach(s => {
+    if(s.dia !== dia) return;
+    (s.dados[ei] || []).forEach(x => { const c = parseFloat(x.kg); if(c > m) m = c; });
+  });
+  return m;
+}
+function ultimaSessao(dia){
+  for(let i = hist.length - 1; i >= 0; i--) if(hist[i].dia === dia) return hist[i];
+  return null;
+}
+
+/* ================= RENDERIZAÇÃO ================= */
+function render(){
+  if(modoHistorico) return renderHistorico();
+  const p = PROGRAMA[diaAtivo];
+  const ult = ultimaSessao(diaAtivo);
+  let i = 0, html = '';
+
+  html += `<div class="aviso"><b>Dia ${diaAtivo} · ${p.titulo}</b> — ${p.dia}<br>${p.nota}</div>`;
+  html += `<div class="lembrete"><b>Aquecimento</b> antes de cada exercício: ⅓ da carga × 15, depois ⅔ × 8.<br><b>Séries de trabalho</b>: pare com 1–2 repetições de sobra.</div>`;
+
+  p.blocos.forEach(bloco => {
+    html += `<div class="grupo">${bloco.grupo}</div>`;
+    bloco.exs.forEach(ex => {
+      const ei = i;
+      const rec = melhorCarga(diaAtivo, ei);
+      const antes = ult ? (ult.dados[ei] || []) : [];
+      const salvo = (atual[diaAtivo] && atual[diaAtivo][ei]) || [];
+
+      let linhas = '';
+      for(let s = 0; s < ex.series; s++){
+        const v = salvo[s] || {kg:'', reps:''};
+        const a = antes[s];
+        const refAnt = a && (a.kg || a.reps)
+          ? `<b>${a.kg||'—'}</b> kg<br>${a.reps||'—'} reps`
+          : '<span style="opacity:.5">—</span>';
+        linhas += `
+        <div class="serie-lin">
+          <div class="serie-n">${s+1}ª</div>
+          <input type="number" inputmode="decimal" placeholder="kg" value="${v.kg}"
+                 data-d="${diaAtivo}" data-e="${ei}" data-s="${s}" data-c="kg" data-rec="${rec}"
+                 oninput="anotar(this)">
+          <input type="number" inputmode="numeric" placeholder="reps" value="${v.reps}"
+                 data-d="${diaAtivo}" data-e="${ei}" data-s="${s}" data-c="reps"
+                 oninput="anotar(this)">
+          <div class="ant">${refAnt}</div>
+        </div>`;
+      }
+
+      html += `
+      <div class="ex">
+        <div class="ex-topo">
+          <span class="ex-num">${ei+1}</span><span class="ex-nome">${ex.n}</span>
+          <div class="ex-alvo">${ex.alvo}</div>
+          <div class="chips"><span class="ex-meta">${ex.meta}</span><span class="ex-pausa">pausa ${ex.pausa}</span></div>
+          <details class="tec" ${aberto[diaAtivo+ei] ? 'open' : ''} ontoggle="aberto['${diaAtivo}${ei}']=this.open">
+            <summary>Técnica · como fazer · alternativa</summary>
+            <div class="tec-in">
+              <div class="fig">${figura(ex.pri, ex.sec)}
+                <div class="leg"><span style="background:${F_PRI}"></span>principal <span style="background:${F_SEC}"></span>auxiliar</div></div>
+              <div class="bl"><b>Como fazer</b>${ex.dica}</div>
+              <div class="bl erro"><b>Evite</b>${ex.erro}</div>
+              <div class="bl alt"><b>Máquina ocupada?</b>${ex.alt}<br><small>Mesma faixa de repetições. A carga não vale como recorde.</small></div>
+              <a class="ex-video" href="${YT(ex.v)}" target="_blank" rel="noopener">Ver vídeo (opcional)</a>
+              <div class="vid-nota">Os vídeos são de terceiros e às vezes divergem entre si. Havendo conflito, vale o que está neste cartão.</div>
+            </div>
+          </details>
+        </div>
+        <div class="series">
+          <div class="serie-cab"><div>Série</div><div>Carga</div><div>Reps</div><div style="text-align:right">Anterior</div></div>
+          ${linhas}
+        </div>
+      </div>`;
+      i++;
+    });
+  });
+
+  document.getElementById('tela').innerHTML = html;
+  document.querySelectorAll('.series input[data-c="kg"]').forEach(marcarRecorde);
+}
+
+function anotar(el){
+  const {d, e, s, c} = el.dataset;
+  atual[d] = atual[d] || {};
+  atual[d][e] = atual[d][e] || [];
+  atual[d][e][s] = atual[d][e][s] || {kg:'', reps:''};
+  atual[d][e][s][c] = el.value;
+  gravar(K_ATUAL, atual);
+  if(c === 'kg') marcarRecorde(el);
+}
+
+function marcarRecorde(el){
+  const rec = parseFloat(el.dataset.rec) || 0;
+  const v = parseFloat(el.value) || 0;
+  el.classList.toggle('recorde', rec > 0 && v > rec);
+}
+
+/* ================= SALVAR ================= */
+function salvarSessao(){
+  const dados = atual[diaAtivo];
+  if(!dados || !Object.keys(dados).length) return toast('Nada registrado neste dia ainda');
+  let algum = false;
+  Object.values(dados).forEach(arr => (arr||[]).forEach(x => { if(x && (x.kg || x.reps)) algum = true; }));
+  if(!algum) return toast('Preencha ao menos uma série');
+
+  hist.push({ v: 6, data: new Date().toISOString(), dia: diaAtivo, titulo: PROGRAMA[diaAtivo].titulo, dados: JSON.parse(JSON.stringify(dados)) });
+  gravar(K_HIST, hist);
+  delete atual[diaAtivo];
+  gravar(K_ATUAL, atual);
+  render();
+  toast(MEMORIA_OK ? 'Sessão salva — faça o backup' : 'ATENÇÃO: faça o backup agora');
+  if(!MEMORIA_OK) setTimeout(exportarBackup, 900);
+  sincronizarDrive();
+}
+
+function limparDia(){
+  if(!confirm('Apagar o que foi digitado no Dia ' + diaAtivo + '? O histórico não será afetado.')) return;
+  delete atual[diaAtivo];
+  gravar(K_ATUAL, atual);
+  render();
+  toast('Dia ' + diaAtivo + ' limpo');
+}
+
+/* ================= HISTÓRICO ================= */
+function verHistorico(){
+  modoHistorico = true;
+  montarAbas();
+  renderHistorico();
+  window.scrollTo(0,0);
+}
+
+function renderHistorico(){
+  if(!hist.length){
+    document.getElementById('tela').innerHTML =
+      htmlConfigSync() + '<div class="vazio">Nenhuma sessão salva ainda.<br><br>Registre as cargas durante o treino e toque em <b>Salvar sessão</b> ao terminar.</div>';
+    return;
+  }
+  let html = htmlConfigSync() + '<div class="grupo">Sessões registradas</div>';
+  [...hist].reverse().forEach((s, idx) => {
+    const p = PROGRAMA[s.dia];
+    const nomes = [];
+    p.blocos.forEach(b => b.exs.forEach(e => nomes.push(e.n)));
+    let linhas = '';
+    Object.keys(s.dados).forEach(ei => {
+      const sets = (s.dados[ei] || []).filter(x => x && (x.kg || x.reps));
+      if(!sets.length) return;
+      linhas += `<div>${nomes[ei] || 'Exercício ' + (+ei+1)}: ` +
+                sets.map(x => `${x.kg||'—'}kg×${x.reps||'—'}`).join('  ·  ') + '</div>';
+    });
+    Object.keys(s.extra || {}).forEach(nm => {
+      const sets = (s.extra[nm] || []).filter(x => x && (x.kg || x.reps));
+      if(sets.length) linhas += `<div style="opacity:.7">${nm}: ` + sets.map(x => `${x.kg||'—'}kg×${x.reps||'—'}`).join('  ·  ') + '</div>';
+    });
+    html += `<div class="hist-item">
+      <div class="d">Dia ${s.dia} — ${s.titulo}</div>
+      <div class="l" style="margin-bottom:7px">${dataCurta(s.data)}</div>
+      <div class="l">${linhas}</div>
+      <button onclick="apagarSessao(${hist.length-1-idx})"
+        style="margin-top:10px;background:none;border:1px solid var(--linha);color:var(--tinta-clara);
+               font-family:inherit;font-size:13px;padding:6px 12px;border-radius:5px;cursor:pointer">Apagar</button>
+    </div>`;
+  });
+  document.getElementById('tela').innerHTML = html;
+}
+
+function apagarSessao(i){
+  if(!confirm('Apagar esta sessão do histórico?')) return;
+  hist.splice(i,1);
+  gravar(K_HIST, hist);
+  renderHistorico();
+  toast('Sessão apagada');
+}
+
+
+/* ================= SINCRONIZAÇÃO COM O GOOGLE DRIVE ================= */
+const K_URL_SYNC = 'lib_treino_url_sync';
+const URL_PADRAO = '';
+let urlSync = (function(){ try{ return localStorage.getItem(K_URL_SYNC) || URL_PADRAO; }catch(e){ return URL_PADRAO; } })();
+let formSyncAberto = false;
+
+function htmlConfigSync(){
+  if(!formSyncAberto && urlSync){
+    return `<div class="sync">Sincronização com o Drive: <b>ativa</b> ·
+      <a href="#" onclick="formSyncAberto=true;renderHistorico();return false">alterar endereço</a></div>`;
+  }
+  return `<div class="sync">
+      <div style="font-weight:600;margin-bottom:6px">Sincronização com o Drive</div><div style="margin-bottom:8px">Cole aqui, uma única vez, o endereço do seu Apps Script (começa com https://script.google.com/macros/...).</div>
+      <input id="url-sync" type="text" value="${urlSync}">
+      <button onclick="salvarUrlSync()">Salvar endereço</button></div>`;
+}
+function salvarUrlSync(){
+  const v = document.getElementById('url-sync').value.trim();
+  if(!v) return toast('Cole o endereço antes de salvar');
+  urlSync = v;
+  try{ localStorage.setItem(K_URL_SYNC, v); }catch(e){}
+  formSyncAberto = false; renderHistorico();
+  toast('Endereço salvo');
+}
+async function sincronizarDrive(){
+  if(!urlSync) return;
+  if(!navigator.onLine){ selo('Salvo no celular · Drive: sem sinal, envia na próxima vez', ''); return; }
+  const linhas = [];
+  hist.forEach(s => {
+    const p = PROGRAMA[s.dia]; if(!p) return;
+    const nomes = []; p.blocos.forEach(b => b.exs.forEach(e => nomes.push(e.n)));
+    Object.keys(s.dados || {}).forEach(ei => (s.dados[ei] || []).forEach((x, i) => {
+      if(!x || (!x.kg && !x.reps)) return;
+      linhas.push([dataCurta(s.data), s.dia, p.titulo, nomes[ei] || 'Exercicio ' + (+ei+1), (i+1)+'a', x.kg || '', x.reps || '']);
+    }));
+  });
+  try{
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 8000);
+    await fetch(urlSync, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({linhas}), signal: ctrl.signal });
+    clearTimeout(t);
+    selo('Salvo às ' + horaAgora() + ' · enviado ao Drive', 'ok');
+  } catch(e){
+    selo('Salvo no celular · Drive não respondeu — use o Backup', '');
+  }
+}
+
+/* ================= AVISO ================= */
+let tmr;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('ver');
+  clearTimeout(tmr);
+  tmr = setTimeout(() => t.classList.remove('ver'), 2200);
+}
+
+/* ================= EXPORTAR / RESTAURAR ================= */
+
+function nomeArquivo(ext){
+  const d = new Date();
+  return 'treino-liberato-' + d.getFullYear() +
+         String(d.getMonth()+1).padStart(2,'0') +
+         String(d.getDate()).padStart(2,'0') + '.' + ext;
+}
+
+async function baixar(texto, nome, tipo){
+  try{
+    const f = new File([texto], nome, {type: tipo});
+    if(navigator.canShare && navigator.canShare({files:[f]})){
+      await navigator.share({files:[f], title:nome});
+      return true;
+    }
+  } catch(e){ if(e && e.name === 'AbortError') return true; }
+  try{
+    const blob = new Blob([texto], {type: tipo + ';charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = nome;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    return true;
+  } catch(e){ return false; }
+}
+
+async function exportarBackup(){
+  const pacote = {
+    aplicativo: 'Treino Liberato',
+    versao: 6,
+    gerado_em: new Date().toISOString(),
+    em_andamento: atual,
+    historico: hist
+  };
+  const txt = JSON.stringify(pacote, null, 2);
+  if(await baixar(txt, nomeArquivo('json'), 'application/json')){
+    toast('Escolha onde salvar o backup');
+  } else {
+    abrirCopia(txt);
+  }
+}
+
+async function exportarPlanilha(){
+  if(!hist.length && !Object.keys(atual).length) return toast('Nada para exportar ainda');
+  const linhas = ['Data;Dia;Treino;Exercicio;Serie;Carga (kg);Repeticoes'];
+
+  function despejar(dataISO, dia, dados){
+    const p = PROGRAMA[dia]; if(!p) return;
+    const nomes = []; p.blocos.forEach(b => b.exs.forEach(e => nomes.push(e.n)));
+    Object.keys(dados).forEach(ei => {
+      (dados[ei] || []).forEach((x, s) => {
+        if(!x || (!x.kg && !x.reps)) return;
+        linhas.push([
+          dataISO ? dataCurta(dataISO) : dataCurta(new Date().toISOString()),
+          dia, p.titulo, (nomes[ei] || 'Exercicio ' + (+ei+1)),
+          (s+1) + 'a', (x.kg || ''), (x.reps || '')
+        ].join(';'));
+      });
+    });
+  }
+
+  hist.forEach(s => despejar(s.data, s.dia, s.dados));
+  Object.keys(atual).forEach(dia => despejar(null, dia, atual[dia]));
+
+  const txt = '\uFEFF' + linhas.join('\r\n');
+  if(await baixar(txt, nomeArquivo('csv'), 'text/csv')){
+    toast('Escolha onde salvar a planilha');
+  } else {
+    abrirCopia(linhas.join('\n'));
+  }
+}
+
+function abrirCopia(txt){
+  document.getElementById('copiar-txt').value = txt;
+  document.getElementById('copiar').classList.add('ver');
+  window.scrollTo(0,0);
+  toast('Download bloqueado — copie o texto');
+}
+function fecharCopia(){
+  document.getElementById('copiar').classList.remove('ver');
+}
+
+function importarArquivo(input){
+  const f = input.files && input.files[0];
+  if(!f) return;
+  const leitor = new FileReader();
+  leitor.onload = ev => {
+    try{
+      const p = JSON.parse(ev.target.result);
+      if(!p || !Array.isArray(p.historico)) throw new Error('formato');
+      if(!confirm('Restaurar ' + p.historico.length + ' sessão(ões) deste backup? O conteúdo atual será substituído.')) return;
+      hist = p.historico;
+      atual = p.em_andamento || {};
+      if(!(p.versao >= 6)) migrarTudo();
+      gravar(K_HIST, hist);
+      gravar(K_ATUAL, atual);
+      modoHistorico = false;
+      montarAbas(); render();
+      toast('Backup restaurado');
+    } catch(e){
+      toast('Arquivo inválido — use um backup do aplicativo');
+    }
+  };
+  leitor.readAsText(f);
+  input.value = '';
+}
+
+/* ================= FUNCIONAMENTO SEM SINAL ================= */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+
+/* ================= INÍCIO ================= */
+montarAbas();
+render();
+
+if(!MEMORIA_OK){
+  mostrarAlerta();
+  selo('Memória bloqueada — use o Backup ao terminar', 'erro');
+} else {
+  selo('Memória funcionando neste navegador', 'ok');
+}
+</script>
+</body>
+</html>
