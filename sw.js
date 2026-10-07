@@ -1,6 +1,6 @@
 /* Guarda o aplicativo no celular para funcionar sem sinal.
    Com internet: busca a versão mais nova. Sem internet: usa a cópia guardada. */
-const CACHE = 'treino-liberato-v6';
+const CACHE = 'treino-liberato-v7';
 const ARQUIVOS = ['./', './index.html', './manifest.webmanifest', './icone-192.png', './icone-512.png'];
 
 self.addEventListener('install', e => {

@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Treino">
 <meta name="theme-color" content="#1B2A3A">
-<title>Treino — Liberato (v6)</title>
+<title>Treino — Liberato (v7)</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icone-192.png">
 <link rel="apple-touch-icon" href="icone-192.png">
@@ -220,13 +220,35 @@ details.tec[open] summary::after{transform:rotate(180deg)}
 .sync a{color:var(--azul);font-weight:600}
 .sync input{width:100%;padding:9px;border:1px solid var(--linha);border-radius:6px;font-size:13px;margin-bottom:8px;font-family:inherit}
 .sync button{width:100%;padding:10px;border:none;border-radius:6px;background:var(--azul);color:#fff;font-weight:600;font-family:inherit;font-size:14px}
+/* ---------- v7: POTÊNCIA, ÚLTIMA VEZ, ABA CORPO ---------- */
+.ex-pot{display:inline-block;background:var(--verde-fraco);color:var(--verde);font-size:13px;font-weight:700;padding:4px 11px;border-radius:5px}
+.ex-ult{font-size:12px;color:var(--tinta-clara);margin-top:7px}
+.cartao{background:var(--papel-alto);border:1px solid var(--linha);border-radius:9px;padding:13px 14px;margin-bottom:13px}
+.cartao h3{margin:0 0 9px;font-size:15px}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.campos label{font-size:12px;font-weight:700;color:var(--tinta-clara);letter-spacing:.03em}
+.campos input{width:100%;font-family:inherit;font-size:19px;font-weight:600;text-align:center;padding:10px 4px;border:1px solid var(--linha);border-radius:6px;background:#fff;color:var(--tinta);margin-top:4px;-moz-appearance:textfield}
+.campos input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px var(--azul-fraco)}
+.bt{width:100%;margin-top:12px;font-family:inherit;font-size:15px;font-weight:700;padding:13px;border:none;border-radius:8px;background:var(--verde);color:#fff;cursor:pointer}
+.bt.sec{background:var(--papel);color:var(--tinta);border:1px solid var(--linha)}
+.sinal{border-left:5px solid var(--verde);background:var(--verde-fraco);color:#1F4A2A;padding:11px 13px;border-radius:0 7px 7px 0;font-size:14px;line-height:1.5;margin-bottom:10px}
+.sinal.amb{border-color:var(--ambar);background:var(--ambar-fraco);color:#5C3E08}
+.sinal.ver{border-color:var(--vinho);background:#F7E4E4;color:#5E1622}
+.sinal.neu{border-color:var(--linha);background:var(--papel-alto);color:var(--tinta-clara)}
+.sinal b{display:block;font-size:14px;margin-bottom:2px}
+.tab{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.tab th{text-align:right;font-size:11px;color:var(--tinta-clara);font-weight:700;padding:6px 4px;border-bottom:2px solid var(--linha)}
+.tab td{text-align:right;padding:7px 4px;border-bottom:1px solid #E8E3DA}
+.tab th:first-child,.tab td:first-child{text-align:left}
+.desce{color:var(--verde);font-weight:700}.sobe{color:var(--vinho);font-weight:700}.rapido{color:var(--vinho);font-weight:700}
+nav button{font-size:14px;padding:12px 2px 10px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v6</span></h1>
+  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v7</span></h1>
   <div class="sub" id="hoje"></div>
 </header>
 
@@ -262,24 +284,26 @@ details.tec[open] summary::after{transform:rotate(180deg)}
 
 <script>
 /* ==================================================================
-   VERSÃO 6 — cartões técnicos integrados. PROGRAMA — sem barra livre. Ênfase: ombros (anterior/posterior)
-   e peitoral, sobretudo porção superior.
+   VERSÃO 7 — divisão Superior/Inferior (cada músculo 2x por semana), aba Corpo
+   (peso, cintura, pulso, caminhada), alertas de ritmo de perda, pulso e perda muscular,
+   controle de deload. Histórico ligado pelo NOME do exercício: as cargas da v6 continuam valendo.
    ================================================================== */
 const YT = t => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(t);
 const PROGRAMA = {
- "A": {
-  "titulo": "Peito + Tríceps",
+ "S1": {
+  "titulo": "Superior 1",
+  "aba": "Sup 1",
   "dia": "Segunda",
-  "nota": "Prioridade: porção superior do peitoral — é ela que dá contorno ao peito.",
+  "nota": "Empurrar e puxar em equilíbrio: cada série de peito tem uma de costas. Ênfase no peitoral superior.",
   "blocos": [
    {
-    "grupo": "Peito",
+    "grupo": "Peito e costas — alternados",
     "exs": [
      {
       "n": "Supino máquina articulado",
       "alvo": "Peitoral · tríceps · deltoide anterior",
-      "series": 4,
-      "meta": "4 × 8–10",
+      "series": 3,
+      "meta": "3 × 8–10",
       "pausa": "2 min",
       "pri": [
        "peito"
@@ -291,13 +315,337 @@ const PROGRAMA = {
       "dica": "Pegadores entre a clavícula e o mamilo. Escápulas travadas. Não trave os cotovelos.",
       "erro": "Ombros saindo do encosto — a carga passa para a articulação.",
       "alt": "Supino reto com halteres (carga moderada)",
-      "v": "supino máquina articulada execução correta"
+      "v": "supino máquina articulada execução correta",
+      "pot": "Potência: suba rápido, desça em 3 s"
+     },
+     {
+      "n": "Puxada frontal na polia alta",
+      "alvo": "Grande dorsal · bíceps",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "biceps",
+       "delt_post"
+      ],
+      "dica": "Pegada um pouco mais aberta que os ombros. Puxe até o queixo, à frente do corpo. Peito para cima.",
+      "erro": "Puxar atrás da nuca — posição de risco para o ombro nesta idade.",
+      "alt": "Puxada com triângulo (pegada neutra) ou puxada articulada",
+      "v": "puxada frontal polia execução correta"
      },
      {
       "n": "Supino inclinado (máquina ou Smith)",
       "alvo": "Peitoral superior",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "peito"
+      ],
+      "sec": [
+       "delt_ant",
+       "triceps"
+      ],
+      "dica": "Banco entre 30° e 45°. Desça até a parte alta do peito. O mais importante do dia.",
+      "erro": "Banco acima de 45° — vira treino de ombro.",
+      "alt": "Supino inclinado com halteres, 30°",
+      "v": "supino inclinado smith execução correta"
+     },
+     {
+      "n": "Remada sentada na polia baixa",
+      "alvo": "Dorsais · romboides · trapézio médio",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "biceps",
+       "delt_post",
+       "trap"
+      ],
+      "dica": "Coluna neutra. Leve os cotovelos para trás e junte as escápulas. Volte controlando.",
+      "erro": "Arredondar a lombar ao estender os braços.",
+      "alt": "Remada unilateral com halter, apoiado no banco",
+      "v": "remada sentada polia baixa execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Ombros",
+    "exs": [
+     {
+      "n": "Elevação lateral na máquina",
+      "alvo": "Deltoide lateral — largura",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_lat"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Suba até a linha dos ombros, não acima. Cotovelo levemente dobrado.",
+      "erro": "Encolher os ombros ao subir — o trapézio rouba o movimento.",
+      "alt": "Elevação lateral com halteres ou unilateral na polia",
+      "v": "elevação lateral máquina execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Braços",
+    "exs": [
+     {
+      "n": "Tríceps na polia — barra reta",
+      "alvo": "Tríceps",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "triceps"
+      ],
+      "sec": [],
+      "dica": "Cotovelos colados ao tronco. Só o antebraço se move.",
+      "erro": "Cotovelos avançando para frente — o ombro assume o trabalho.",
+      "alt": "Tríceps na polia com barra V",
+      "v": "tríceps polia barra execução correta"
+     },
+     {
+      "n": "Rosca direta na polia baixa",
+      "alvo": "Bíceps",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "biceps"
+      ],
+      "sec": [
+       "antebraco"
+      ],
+      "dica": "Cotovelos junto ao corpo. Desça em 2–3 s.",
+      "erro": "Balançar o tronco para subir a carga.",
+      "alt": "Rosca alternada com halteres, sentado",
+      "v": "rosca direta polia baixa execução correta"
+     }
+    ]
+   }
+  ]
+ },
+ "I1": {
+  "titulo": "Inferior 1",
+  "aba": "Inf 1",
+  "dia": "Terça",
+  "nota": "Pernas duas vezes por semana: são o primeiro grupo que a idade leva e o que mais protege contra quedas. Tudo em máquinas.",
+  "blocos": [
+   {
+    "grupo": "Coxas",
+    "exs": [
+     {
+      "n": "Leg press 45°",
+      "alvo": "Quadríceps · glúteos",
       "series": 4,
       "meta": "4 × 10–12",
+      "pausa": "2 min",
+      "pri": [
+       "quad"
+      ],
+      "sec": [
+       "gluteo",
+       "isquio"
+      ],
+      "dica": "Pés na largura dos ombros, no meio da plataforma. Desça até 90° no joelho.",
+      "erro": "Deixar a lombar descolar do banco no fundo — é o erro que lesiona.",
+      "alt": "Hack machine ou leg press horizontal",
+      "v": "leg press 45 execução correta",
+      "pot": "Potência: suba rápido, desça em 3 s"
+     },
+     {
+      "n": "Mesa flexora",
+      "alvo": "Posterior de coxa",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "isquio"
+      ],
+      "sec": [
+       "pant"
+      ],
+      "dica": "Quadril colado no banco. A descida lenta é onde está o estímulo.",
+      "erro": "Levantar o quadril para completar a repetição.",
+      "alt": "Cadeira flexora sentada (e depois volte à mesa)",
+      "v": "mesa flexora execução correta"
+     },
+     {
+      "n": "Cadeira extensora",
+      "alvo": "Quadríceps — isolamento",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "90 s",
+      "pri": [
+       "quad"
+      ],
+      "sec": [],
+      "dica": "Joelho alinhado ao eixo da máquina. Segure 1 s no topo, desça devagar.",
+      "erro": "Soltar o peso na descida — sobrecarga no tendão patelar.",
+      "alt": "Leg press com pés na parte baixa da plataforma",
+      "v": "cadeira extensora execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Quadril e panturrilha",
+    "exs": [
+     {
+      "n": "Adutora e abdutora",
+      "alvo": "Adutores · glúteo médio",
+      "series": 2,
+      "meta": "2 × 15 cada",
+      "pausa": "60 s",
+      "pri": [
+       "adut",
+       "glut_med"
+      ],
+      "sec": [],
+      "dica": "Uma máquina em seguida da outra. Glúteo médio sustenta o equilíbrio do quadril.",
+      "erro": "Movimento rápido, batendo as placas.",
+      "alt": "Abdução e adução na polia baixa, com tornozeleira",
+      "v": "cadeira adutora abdutora execução correta"
+     },
+     {
+      "n": "Panturrilha no leg press",
+      "alvo": "Gastrocnêmio · sóleo",
+      "series": 3,
+      "meta": "3 × 15–20",
+      "pausa": "60 s",
+      "pri": [
+       "pant"
+      ],
+      "sec": [],
+      "dica": "Amplitude completa: alongue embaixo, pausa de 1 s em cima.",
+      "erro": "Meias repetições rápidas, sem alongar.",
+      "alt": "Panturrilha sentado na máquina",
+      "v": "panturrilha leg press execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Ombro posterior e abdome",
+    "exs": [
+     {
+      "n": "Crucifixo inverso na máquina",
+      "alvo": "Deltoide posterior · romboides",
+      "series": 3,
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_post"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Cotovelos na altura dos ombros. Abra puxando pelos cotovelos. Carga leve, controle total. Primeira das duas doses da semana.",
+      "erro": "Carga excessiva: o trapézio assume e o posterior fica sem estímulo.",
+      "alt": "Crucifixo inverso nos cabos cruzados, polias na altura do ombro",
+      "v": "crucifixo inverso máquina execução correta"
+     },
+     {
+      "n": "Abdominal na máquina",
+      "alvo": "Reto abdominal",
+      "series": 3,
+      "meta": "3 × 15",
+      "pausa": "60 s",
+      "pri": [
+       "abd"
+      ],
+      "sec": [],
+      "dica": "Movimento curto, enrolando o tronco. Expire ao contrair.",
+      "erro": "Puxar com os braços ou com o pescoço.",
+      "alt": "Abdominal ajoelhado na polia alta com corda",
+      "v": "abdominal máquina execução correta"
+     }
+    ]
+   }
+  ]
+ },
+ "S2": {
+  "titulo": "Superior 2",
+  "aba": "Sup 2",
+  "dia": "Quinta",
+  "nota": "Segunda dose da semana para peito, costas, ombros e braços. Ênfase em ombros e largura das costas.",
+  "blocos": [
+   {
+    "grupo": "Ombros e costas",
+    "exs": [
+     {
+      "n": "Desenvolvimento na máquina",
+      "alvo": "Deltoide anterior e lateral · tríceps",
+      "series": 3,
+      "meta": "3 × 8–10",
+      "pausa": "2 min",
+      "pri": [
+       "delt_ant"
+      ],
+      "sec": [
+       "delt_lat",
+       "triceps"
+      ],
+      "dica": "Costas apoiadas. Pegadores na altura das orelhas. Não trave os cotovelos no topo.",
+      "erro": "Descer abaixo da orelha com carga alta — estresse no manguito rotador.",
+      "alt": "Desenvolvimento com halteres, sentado com encosto, carga menor",
+      "v": "desenvolvimento ombros máquina execução correta"
+     },
+     {
+      "n": "Puxada com triângulo (pegada neutra)",
+      "alvo": "Grande dorsal · bíceps",
+      "pausa": "2 min",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "biceps",
+       "delt_post"
+      ],
+      "dica": "Tronco levemente inclinado para trás. Leve o triângulo ao alto do peito, cotovelos rentes ao corpo.",
+      "erro": "Jogar o tronco para trás a cada repetição para vencer a carga.",
+      "alt": "Puxada articulada na máquina",
+      "v": "puxada triângulo polia alta execução correta",
+      "series": 3,
+      "meta": "3 × 10–12"
+     },
+     {
+      "n": "Remada articulada na máquina",
+      "alvo": "Dorsais · trapézio",
+      "series": 3,
+      "meta": "3 × 10–12",
+      "pausa": "90 s",
+      "pri": [
+       "dorsal"
+      ],
+      "sec": [
+       "delt_post",
+       "trap"
+      ],
+      "dica": "Peito apoiado. Puxe com os cotovelos, não com as mãos. Segure 1 s.",
+      "erro": "Tirar o peito do apoio para ganhar impulso.",
+      "alt": "Remada unilateral no cabo, sentado",
+      "v": "remada máquina articulada execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Peito",
+    "exs": [
+     {
+      "n": "Supino inclinado (máquina ou Smith)",
+      "alvo": "Peitoral superior",
+      "series": 3,
+      "meta": "3 × 10–12",
       "pausa": "2 min",
       "pri": [
        "peito"
@@ -325,49 +673,34 @@ const PROGRAMA = {
       "erro": "Abrir demais na volta — estira a cápsula anterior do ombro.",
       "alt": "Crucifixo com halteres no banco reto, amplitude curta",
       "v": "voador peck deck execução correta"
-     },
-     {
-      "n": "Crossover na polia baixa",
-      "alvo": "Peitoral superior",
-      "series": 3,
-      "meta": "3 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "peito"
-      ],
-      "sec": [
-       "delt_ant"
-      ],
-      "dica": "Polias embaixo; mãos sobem em arco até o queixo. Carga leve: exercício de contração, não de peso.",
-      "erro": "Usar o balanço do tronco para subir a carga.",
-      "alt": "Crossover na polia média, mãos à altura do peito",
-      "v": "crossover polia baixa peitoral superior"
      }
     ]
    },
    {
-    "grupo": "Tríceps",
+    "grupo": "Ombro lateral e braços",
     "exs": [
      {
-      "n": "Tríceps na polia — barra reta",
-      "alvo": "Tríceps",
+      "n": "Elevação lateral na máquina",
+      "alvo": "Deltoide lateral — largura",
       "series": 3,
-      "meta": "3 × 10–12",
-      "pausa": "90 s",
+      "meta": "3 × 12–15",
+      "pausa": "60 s",
       "pri": [
-       "triceps"
+       "delt_lat"
       ],
-      "sec": [],
-      "dica": "Cotovelos colados ao tronco. Só o antebraço se move.",
-      "erro": "Cotovelos avançando para frente — o ombro assume o trabalho.",
-      "alt": "Tríceps na polia com barra V",
-      "v": "tríceps polia barra execução correta"
+      "sec": [
+       "trap"
+      ],
+      "dica": "Suba até a linha dos ombros, não acima. Cotovelo levemente dobrado.",
+      "erro": "Encolher os ombros ao subir — o trapézio rouba o movimento.",
+      "alt": "Elevação lateral com halteres ou unilateral na polia",
+      "v": "elevação lateral máquina execução correta"
      },
      {
       "n": "Tríceps corda na polia",
       "alvo": "Tríceps — cabeça lateral",
-      "series": 3,
-      "meta": "3 × 12–15",
+      "series": 2,
+      "meta": "2 × 12–15",
       "pausa": "60 s",
       "pri": [
        "triceps"
@@ -379,153 +712,10 @@ const PROGRAMA = {
       "v": "tríceps corda polia execução correta"
      },
      {
-      "n": "Tríceps francês na polia",
-      "alvo": "Tríceps — cabeça longa",
-      "series": 2,
-      "meta": "2 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "triceps"
-      ],
-      "sec": [],
-      "dica": "De costas para a polia, um pé à frente. Cotovelos apontados para frente e imóveis.",
-      "erro": "Arquear a lombar para compensar — reduza a carga.",
-      "alt": "Tríceps francês com 1 halter, sentado com encosto",
-      "v": "tríceps francês polia execução correta"
-     }
-    ]
-   }
-  ]
- },
- "B": {
-  "titulo": "Costas + Bíceps",
-  "dia": "Terça",
-  "nota": "Deltoide posterior é o ponto mais atrasado: recebe aqui a primeira das duas doses semanais.",
-  "blocos": [
-   {
-    "grupo": "Costas",
-    "exs": [
-     {
-      "n": "Puxada frontal na polia alta",
-      "alvo": "Grande dorsal · bíceps",
-      "series": 4,
-      "meta": "4 × 10–12",
-      "pausa": "2 min",
-      "pri": [
-       "dorsal"
-      ],
-      "sec": [
-       "biceps",
-       "delt_post"
-      ],
-      "dica": "Pegada um pouco mais aberta que os ombros. Puxe até o queixo, à frente do corpo. Peito para cima.",
-      "erro": "Puxar atrás da nuca — posição de risco para o ombro nesta idade.",
-      "alt": "Puxada com triângulo (pegada neutra) ou puxada articulada",
-      "v": "puxada frontal polia execução correta"
-     },
-     {
-      "n": "Remada sentada na polia baixa",
-      "alvo": "Dorsais · romboides · trapézio médio",
-      "series": 4,
-      "meta": "4 × 10–12",
-      "pausa": "2 min",
-      "pri": [
-       "dorsal"
-      ],
-      "sec": [
-       "biceps",
-       "delt_post",
-       "trap"
-      ],
-      "dica": "Coluna neutra. Leve os cotovelos para trás e junte as escápulas. Volte controlando.",
-      "erro": "Arredondar a lombar ao estender os braços.",
-      "alt": "Remada unilateral com halter, apoiado no banco",
-      "v": "remada sentada polia baixa execução correta"
-     },
-     {
-      "n": "Remada articulada na máquina",
-      "alvo": "Dorsais · trapézio",
-      "series": 3,
-      "meta": "3 × 10–12",
-      "pausa": "90 s",
-      "pri": [
-       "dorsal"
-      ],
-      "sec": [
-       "delt_post",
-       "trap"
-      ],
-      "dica": "Peito apoiado. Puxe com os cotovelos, não com as mãos. Segure 1 s.",
-      "erro": "Tirar o peito do apoio para ganhar impulso.",
-      "alt": "Remada unilateral no cabo, sentado",
-      "v": "remada máquina articulada execução correta"
-     },
-     {
-      "n": "Pullover na polia alta",
-      "alvo": "Grande dorsal — isolamento",
-      "series": 3,
-      "meta": "3 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "dorsal"
-      ],
-      "sec": [
-       "triceps"
-      ],
-      "dica": "Cotovelos quase retos. Barra desce em arco até as coxas.",
-      "erro": "Dobrar os cotovelos — vira tríceps.",
-      "alt": "Pullover na polia alta com corda",
-      "v": "pullover polia alta execução correta"
-     }
-    ]
-   },
-   {
-    "grupo": "Deltoide posterior",
-    "exs": [
-     {
-      "n": "Crucifixo inverso na máquina",
-      "alvo": "Deltoide posterior · romboides",
-      "series": 4,
-      "meta": "4 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "delt_post"
-      ],
-      "sec": [
-       "trap"
-      ],
-      "dica": "Cotovelos na altura dos ombros. Abra puxando pelos cotovelos. Carga leve, controle total.",
-      "erro": "Carga excessiva: o trapézio assume e o posterior fica sem estímulo.",
-      "alt": "Crucifixo inverso nos cabos cruzados, polias na altura do ombro",
-      "v": "crucifixo inverso máquina execução correta"
-     }
-    ]
-   },
-   {
-    "grupo": "Bíceps",
-    "exs": [
-     {
-      "n": "Rosca direta na polia baixa",
-      "alvo": "Bíceps",
-      "series": 3,
-      "meta": "3 × 10–12",
-      "pausa": "90 s",
-      "pri": [
-       "biceps"
-      ],
-      "sec": [
-       "antebraco"
-      ],
-      "dica": "Cotovelos junto ao corpo. Desça em 2–3 s.",
-      "erro": "Balançar o tronco para subir a carga.",
-      "alt": "Rosca alternada com halteres, sentado",
-      "v": "rosca direta polia baixa execução correta"
-     },
-     {
       "n": "Rosca martelo com corda",
       "alvo": "Braquial · braquiorradial",
-      "series": 3,
-      "meta": "3 × 12–15",
+      "series": 2,
+      "meta": "2 × 12–15",
       "pausa": "60 s",
       "pri": [
        "antebraco",
@@ -541,19 +731,35 @@ const PROGRAMA = {
    }
   ]
  },
- "C": {
-  "titulo": "Pernas + Abdome",
-  "dia": "Quinta",
-  "nota": "Tudo em máquinas: sem agachamento livre, coluna e equilíbrio protegidos.",
+ "I2": {
+  "titulo": "Inferior 2",
+  "aba": "Inf 2",
+  "dia": "Sexta",
+  "nota": "Ênfase na parte de trás da coxa e no ombro posterior. Termina com prancha e equilíbrio.",
   "blocos": [
    {
-    "grupo": "Coxa — anterior",
+    "grupo": "Coxas",
     "exs": [
+     {
+      "n": "Cadeira flexora sentada",
+      "alvo": "Posterior de coxa",
+      "series": 4,
+      "meta": "4 × 10–12",
+      "pausa": "60 s",
+      "pri": [
+       "isquio"
+      ],
+      "sec": [],
+      "dica": "Apoio logo acima do tornozelo. Desça devagar: é na descida que está o estímulo.",
+      "erro": "Amplitude curta por excesso de carga.",
+      "alt": "Mesa flexora (e depois volte à cadeira)",
+      "v": "cadeira flexora sentada execução correta"
+     },
      {
       "n": "Leg press 45°",
       "alvo": "Quadríceps · glúteos",
-      "series": 4,
-      "meta": "4 × 10–12",
+      "series": 3,
+      "meta": "3 × 12–15",
       "pausa": "2 min",
       "pri": [
        "quad"
@@ -570,8 +776,8 @@ const PROGRAMA = {
      {
       "n": "Cadeira extensora",
       "alvo": "Quadríceps — isolamento",
-      "series": 4,
-      "meta": "4 × 12–15",
+      "series": 3,
+      "meta": "3 × 12–15",
       "pausa": "90 s",
       "pri": [
        "quad"
@@ -585,96 +791,67 @@ const PROGRAMA = {
     ]
    },
    {
-    "grupo": "Coxa — posterior",
+    "grupo": "Panturrilha",
     "exs": [
      {
-      "n": "Mesa flexora",
-      "alvo": "Posterior de coxa",
-      "series": 4,
-      "meta": "4 × 10–12",
-      "pausa": "90 s",
-      "pri": [
-       "isquio"
-      ],
-      "sec": [
-       "pant"
-      ],
-      "dica": "Quadril colado no banco. A descida lenta é onde está o estímulo.",
-      "erro": "Levantar o quadril para completar a repetição.",
-      "alt": "Cadeira flexora sentada (e depois volte à mesa)",
-      "v": "mesa flexora execução correta"
-     },
-     {
-      "n": "Cadeira flexora sentada",
-      "alvo": "Posterior de coxa",
-      "series": 3,
-      "meta": "3 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "isquio"
-      ],
-      "sec": [],
-      "dica": "Apoio logo acima do tornozelo. Ângulo diferente da mesa: complementa.",
-      "erro": "Amplitude curta por excesso de carga.",
-      "alt": "Mesa flexora (e depois volte à cadeira)",
-      "v": "cadeira flexora sentada execução correta"
-     }
-    ]
-   },
-   {
-    "grupo": "Complementares",
-    "exs": [
-     {
-      "n": "Adutora e abdutora",
-      "alvo": "Adutores · glúteo médio",
-      "series": 3,
-      "meta": "3 × 15 cada",
-      "pausa": "60 s",
-      "pri": [
-       "adut",
-       "glut_med"
-      ],
-      "sec": [],
-      "dica": "Uma máquina em seguida da outra. Glúteo médio sustenta o equilíbrio do quadril.",
-      "erro": "Movimento rápido, batendo as placas.",
-      "alt": "Abdução e adução na polia baixa, com tornozeleira",
-      "v": "cadeira adutora abdutora execução correta"
-     },
-     {
-      "n": "Panturrilha no leg press",
-      "alvo": "Gastrocnêmio · sóleo",
-      "series": 4,
-      "meta": "4 × 15–20",
+      "n": "Panturrilha sentado na máquina",
+      "alvo": "Sóleo — sustenta a caminhada",
       "pausa": "60 s",
       "pri": [
        "pant"
       ],
       "sec": [],
-      "dica": "Amplitude completa: alongue embaixo, pausa de 1 s em cima.",
-      "erro": "Meias repetições rápidas, sem alongar.",
-      "alt": "Panturrilha sentado na máquina",
-      "v": "panturrilha leg press execução correta"
+      "dica": "Com o joelho dobrado o trabalho vai para o sóleo. Alongue embaixo, pausa de 1 s em cima.",
+      "erro": "Quicar no fundo do movimento.",
+      "alt": "Panturrilha no leg press",
+      "v": "panturrilha sentado máquina execução correta",
+      "series": 3,
+      "meta": "3 × 15–20"
      }
     ]
    },
    {
-    "grupo": "Abdome",
+    "grupo": "Ombro posterior",
     "exs": [
      {
-      "n": "Abdominal na máquina",
-      "alvo": "Reto abdominal",
+      "n": "Face pull na polia alta",
+      "alvo": "Deltoide posterior · rotadores",
       "series": 3,
       "meta": "3 × 15",
       "pausa": "60 s",
       "pri": [
-       "abd"
+       "delt_post"
       ],
-      "sec": [],
-      "dica": "Movimento curto, enrolando o tronco. Expire ao contrair.",
-      "erro": "Puxar com os braços ou com o pescoço.",
-      "alt": "Abdominal ajoelhado na polia alta com corda",
-      "v": "abdominal máquina execução correta"
+      "sec": [
+       "trap"
+      ],
+      "dica": "Corda na altura do rosto. Puxe em direção à testa, girando os polegares para trás.",
+      "erro": "Puxar para o queixo — perde a rotação externa, que protege o ombro.",
+      "alt": "Crucifixo inverso nos cabos ou com halteres, peito apoiado em banco inclinado",
+      "v": "face pull polia execução correta"
      },
+     {
+      "n": "Crucifixo inverso na máquina",
+      "alvo": "Deltoide posterior · romboides",
+      "series": 2,
+      "meta": "2 × 12–15",
+      "pausa": "60 s",
+      "pri": [
+       "delt_post"
+      ],
+      "sec": [
+       "trap"
+      ],
+      "dica": "Segunda dose da semana. Puxe pelos cotovelos, segure 1 s, volte devagar.",
+      "erro": "Carga excessiva: o trapézio assume e o posterior fica sem estímulo.",
+      "alt": "Crucifixo inverso nos cabos cruzados, polias na altura do ombro",
+      "v": "crucifixo inverso máquina execução correta"
+     }
+    ]
+   },
+   {
+    "grupo": "Core e equilíbrio",
+    "exs": [
      {
       "n": "Prancha isométrica",
       "alvo": "Core — estabilizadores",
@@ -692,133 +869,32 @@ const PROGRAMA = {
       "erro": "Prender a respiração — respire curto e contínuo.",
       "alt": "Não depende de aparelho — nunca está ocupada",
       "v": "prancha isométrica execução correta"
-     }
-    ]
-   }
-  ]
- },
- "D": {
-  "titulo": "Ombros + Trapézio",
-  "dia": "Sexta",
-  "nota": "As três porções do deltoide em separado. Sem elevação frontal: o anterior já trabalha em todo supino.",
-  "blocos": [
-   {
-    "grupo": "Deltoide anterior e lateral",
-    "exs": [
-     {
-      "n": "Desenvolvimento na máquina",
-      "alvo": "Deltoide anterior e lateral · tríceps",
-      "series": 4,
-      "meta": "4 × 8–10",
-      "pausa": "2 min",
-      "pri": [
-       "delt_ant"
-      ],
-      "sec": [
-       "delt_lat",
-       "triceps"
-      ],
-      "dica": "Costas apoiadas. Pegadores na altura das orelhas. Não trave os cotovelos no topo.",
-      "erro": "Descer abaixo da orelha com carga alta — estresse no manguito rotador.",
-      "alt": "Desenvolvimento com halteres, sentado com encosto, carga menor",
-      "v": "desenvolvimento ombros máquina execução correta"
      },
      {
-      "n": "Elevação lateral na máquina",
-      "alvo": "Deltoide lateral — largura",
-      "series": 4,
-      "meta": "4 × 12–15",
-      "pausa": "60 s",
+      "n": "Equilíbrio em um pé só",
+      "alvo": "Glúteo médio · tornozelo · equilíbrio",
+      "pausa": "30 s",
       "pri": [
-       "delt_lat"
+       "glut_med"
       ],
       "sec": [
-       "trap"
+       "pant"
       ],
-      "dica": "Suba até a linha dos ombros, não acima. Cotovelo levemente dobrado.",
-      "erro": "Encolher os ombros ao subir — o trapézio rouba o movimento.",
-      "alt": "Elevação lateral com halteres ou unilateral na polia",
-      "v": "elevação lateral máquina execução correta"
-     }
-    ]
-   },
-   {
-    "grupo": "Deltoide posterior",
-    "exs": [
-     {
-      "n": "Crucifixo inverso na máquina",
-      "alvo": "Deltoide posterior",
-      "series": 4,
-      "meta": "4 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "delt_post"
-      ],
-      "sec": [
-       "trap"
-      ],
-      "dica": "Segunda dose da semana. Puxe pelos cotovelos, segure 1 s, volte devagar.",
-      "erro": "Mesma armadilha de terça: carga alta tira o posterior do exercício.",
-      "alt": "Crucifixo inverso nos cabos cruzados",
-      "v": "crucifixo inverso máquina execução correta"
-     },
-     {
-      "n": "Face pull na polia alta",
-      "alvo": "Deltoide posterior · rotadores",
-      "series": 3,
-      "meta": "3 × 15",
-      "pausa": "60 s",
-      "pri": [
-       "delt_post"
-      ],
-      "sec": [
-       "trap"
-      ],
-      "dica": "Corda na altura do rosto. Puxe em direção à testa, girando os polegares para trás.",
-      "erro": "Puxar para o queixo — perde a rotação externa, que protege o ombro.",
-      "alt": "Crucifixo inverso nos cabos ou com halteres, peito apoiado em banco inclinado",
-      "v": "face pull polia execução correta"
-     }
-    ]
-   },
-   {
-    "grupo": "Trapézio + Abdome",
-    "exs": [
-     {
-      "n": "Encolhimento na máquina",
-      "alvo": "Trapézio superior",
-      "series": 3,
-      "meta": "3 × 12–15",
-      "pausa": "60 s",
-      "pri": [
-       "trap"
-      ],
-      "sec": [],
-      "dica": "Movimento vertical puro, ombros às orelhas. Pausa de 1 s no topo.",
-      "erro": "Girar os ombros — atrita a articulação sem ganho algum.",
-      "alt": "Encolhimento com halteres",
-      "v": "encolhimento ombros máquina execução correta"
-     },
-     {
-      "n": "Abdominal na máquina",
-      "alvo": "Reto abdominal",
-      "series": 3,
-      "meta": "3 × 15",
-      "pausa": "60 s",
-      "pri": [
-       "abd"
-      ],
-      "sec": [],
-      "dica": "Enrole o tronco de forma controlada. Expire ao contrair.",
-      "erro": "Puxar com os braços.",
-      "alt": "Abdominal ajoelhado na polia alta com corda",
-      "v": "abdominal máquina execução correta"
+      "dica": "Ao lado de um apoio fixo, mão a 2 cm dele sem tocar. Olhar fixo num ponto. Ficou fácil? Vire a cabeça devagar de um lado para o outro. Anote os segundos no campo de repetições.",
+      "erro": "Fazer longe de apoio — o objetivo é treinar o equilíbrio, não arriscar uma queda.",
+      "alt": "Não depende de aparelho — nunca está ocupado",
+      "v": "exercício equilíbrio unipodal idosos",
+      "series": 2,
+      "meta": "2 × 30 s cada perna"
      }
     ]
    }
   ]
  }
 };
+
+/* Nomes dos exercícios da v6 (divisão ABCD), por posição — para ler o histórico antigo. */
+const LEGADO = {"A": {"titulo": "Peito + Tríceps", "nomes": ["Supino máquina articulado", "Supino inclinado (máquina ou Smith)", "Voador (peck deck)", "Crossover na polia baixa", "Tríceps na polia — barra reta", "Tríceps corda na polia", "Tríceps francês na polia"]}, "B": {"titulo": "Costas + Bíceps", "nomes": ["Puxada frontal na polia alta", "Remada sentada na polia baixa", "Remada articulada na máquina", "Pullover na polia alta", "Crucifixo inverso na máquina", "Rosca direta na polia baixa", "Rosca martelo com corda"]}, "C": {"titulo": "Pernas + Abdome", "nomes": ["Leg press 45°", "Cadeira extensora", "Mesa flexora", "Cadeira flexora sentada", "Adutora e abdutora", "Panturrilha no leg press", "Abdominal na máquina", "Prancha isométrica"]}, "D": {"titulo": "Ombros + Trapézio", "nomes": ["Desenvolvimento na máquina", "Elevação lateral na máquina", "Crucifixo inverso na máquina", "Face pull na polia alta", "Encolhimento na máquina", "Abdominal na máquina"]}};
 
 
 /* ================= FIGURA MUSCULAR ================= */
@@ -925,7 +1001,30 @@ if(!localStorage.getItem(K_MIGR)){
   migrarTudo();
   try{ localStorage.setItem(K_HIST, JSON.stringify(hist)); localStorage.setItem(K_ATUAL, JSON.stringify(atual)); localStorage.setItem(K_MIGR, '1'); }catch(e){}
 }
-let diaAtivo = 'A';
+/* ================= v7: CORPO E CICLO ================= */
+const K_CORPO = 'lib_treino_v7_corpo';   // [{data:'AAAA-MM-DD', peso, cintura, pulso, caminhada}]
+const K_CICLO = 'lib_treino_v7_ciclo';   // data de início do ciclo atual (para o deload)
+const ALTURA_CM = 172;
+let corpo = ler(K_CORPO, null);
+if(!Array.isArray(corpo)){
+  corpo = [{data:'2026-10-06', peso:'80.1', cintura:'', pulso:'', caminhada:''}];
+  try{ localStorage.setItem(K_CORPO, JSON.stringify(corpo)); }catch(e){}
+}
+let ciclo = (function(){ try{ return localStorage.getItem(K_CICLO) || ''; }catch(e){ return ''; } })();
+
+/* Nomes dos exercícios de uma sessão salva (v7 guarda os nomes; v6 e anteriores usam o LEGADO). */
+function nomesDaSessao(s){
+  if(Array.isArray(s.nomes)) return s.nomes;
+  if(LEGADO[s.dia]) return LEGADO[s.dia].nomes;
+  const p = PROGRAMA[s.dia]; const n = [];
+  if(p) p.blocos.forEach(b => b.exs.forEach(e => n.push(e.n)));
+  return n;
+}
+function nomesDoDia(d){ const n = []; PROGRAMA[d].blocos.forEach(b => b.exs.forEach(e => n.push(e.n))); return n; }
+function rotuloSessao(s){ return LEGADO[s.dia] && !s.nomes ? 'Dia ' + s.dia + ' — ' + s.titulo + ' (divisão antiga)' : s.titulo; }
+
+/* Aba inicial conforme o dia da semana: seg Sup 1, ter Inf 1, qui Sup 2, sex Inf 2; demais dias, Corpo. */
+let diaAtivo = ({1:'S1', 2:'I1', 4:'S2', 5:'I2'})[new Date().getDay()] || 'CORPO';
 let modoHistorico = false;
 const aberto = {};
 
@@ -946,41 +1045,141 @@ document.getElementById('hoje').textContent = dataHoje();
 function montarAbas(){
   document.getElementById('abas').innerHTML = Object.keys(PROGRAMA).map(d =>
     `<button class="${d===diaAtivo && !modoHistorico ? 'on':''}" onclick="irPara('${d}')">
-       ${d}<small>${PROGRAMA[d].titulo.split(' + ')[0]}</small>
-     </button>`).join('');
+       ${PROGRAMA[d].aba}<small>${PROGRAMA[d].dia}</small>
+     </button>`).join('') +
+    `<button class="${diaAtivo==='CORPO' && !modoHistorico ? 'on':''}" onclick="irPara('CORPO')">Corpo<small>medidas</small></button>`;
 }
 function irPara(d){ diaAtivo = d; modoHistorico = false; montarAbas(); render(); window.scrollTo(0,0); }
 
-/* ================= MELHOR MARCA ================= */
-function melhorCarga(dia, ei){
+/* ================= MELHOR MARCA E ÚLTIMA VEZ (pelo nome do exercício, em qualquer dia) ================= */
+function temDado(arr){ return (arr || []).some(x => x && (x.kg || x.reps)); }
+function melhorCarga(nome){
   let m = 0;
   hist.forEach(s => {
-    if(s.dia !== dia) return;
-    (s.dados[ei] || []).forEach(x => { const c = parseFloat(x.kg); if(c > m) m = c; });
+    const i = nomesDaSessao(s).indexOf(nome); if(i < 0) return;
+    ((s.dados || {})[i] || []).forEach(x => { const c = parseFloat(x && x.kg); if(c > m) m = c; });
   });
   return m;
 }
-function ultimaSessao(dia){
-  for(let i = hist.length - 1; i >= 0; i--) if(hist[i].dia === dia) return hist[i];
+function ultimaVez(nome){
+  for(let k = hist.length - 1; k >= 0; k--){
+    const s = hist[k], i = nomesDaSessao(s).indexOf(nome);
+    if(i >= 0 && temDado((s.dados || {})[i])) return {sets: s.dados[i], data: s.data, rot: s.nomes ? s.titulo : 'divisão antiga'};
+  }
   return null;
+}
+
+/* ================= SEMANAS, ALERTAS E DELOAD ================= */
+const DIA_MS = 86400000;
+function isoLocal(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function dataDe(iso){ const [a,m,d] = iso.slice(0,10).split('-').map(Number); return new Date(a, m-1, d); }
+function segundaDe(d){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return isoLocal(x); }
+function ddmm(iso){ const d = dataDe(iso); return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0'); }
+const num = v => { const n = parseFloat(String(v ?? '').replace(',', '.')); return isNaN(n) ? null : n; };
+const media = a => a.length ? a.reduce((x,y) => x + y, 0) / a.length : null;
+const fmt = (v, c=1) => v === null ? '—' : v.toFixed(c).replace('.', ',');
+const fmtCm = v => v === null ? '—' : fmt(v, Number.isInteger(v) ? 0 : 1);
+
+function semanasCorpo(){
+  const sem = {};
+  corpo.forEach(r => {
+    const k = segundaDe(dataDe(r.data));
+    const s = sem[k] = sem[k] || {ini:k, peso:[], cintura:[], pulso:[], caminhada:0};
+    const p = num(r.peso), c = num(r.cintura), b = num(r.pulso), w = num(r.caminhada);
+    if(p !== null) s.peso.push(p);
+    if(c !== null) s.cintura.push(c);
+    if(b !== null) s.pulso.push(b);
+    if(w !== null) s.caminhada += w;
+  });
+  return Object.values(sem).sort((a,b) => a.ini < b.ini ? -1 : 1);
+}
+
+/* Força estimada da melhor série (fórmula de Epley): carga × (1 + repetições ÷ 30). */
+function forcaSemanal(){
+  const porEx = {};
+  hist.forEach(s => {
+    const k = segundaDe(new Date(s.data)), nomes = nomesDaSessao(s);
+    Object.keys(s.dados || {}).forEach(i => (s.dados[i] || []).forEach(x => {
+      const kg = num(x && x.kg), r = num(x && x.reps);
+      if(!kg || !r || r > 30) return;
+      const f = kg * (1 + r / 30), nm = nomes[i]; if(!nm) return;
+      porEx[nm] = porEx[nm] || {};
+      if(!porEx[nm][k] || f > porEx[nm][k]) porEx[nm][k] = f;
+    }));
+  });
+  return porEx;
+}
+
+function alertas(){
+  const out = [], sem = semanasCorpo();
+  /* 1. Ritmo de perda de peso: média semanal contra a semana anterior */
+  const sp = sem.filter(s => s.peso.length);
+  if(sp.length >= 2){
+    const a = sp[sp.length-2], b = sp[sp.length-1];
+    const dias = (dataDe(b.ini) - dataDe(a.ini)) / DIA_MS / 7 || 1;
+    const queda = (media(a.peso) - media(b.peso)) / dias;
+    if(queda > 0.5) out.push(['ver', 'Perda de peso rápida demais', `A média caiu ${fmt(queda,2)} kg por semana. Acima de 0,5 kg, nesta idade, sai músculo junto. Coma mais (sobretudo carboidrato no dia de treino) e confira se a dose não está tirando o apetite em excesso.`]);
+    else if(queda < -0.3) out.push(['amb', 'Peso subindo', `A média subiu ${fmt(-queda,2)} kg na semana. Numa fase de déficit, revise as porções antes de mudar o treino.`]);
+    else out.push(['ok', 'Ritmo de perda adequado', `Variação de ${fmt(-queda,2)} kg na última semana — dentro do limite de 0,5 kg.`]);
+  } else out.push(['neu', 'Ritmo de perda', 'Pese-se em jejum 3 vezes por semana. Com duas semanas de registros a avaliação aparece aqui.']);
+
+  /* 2. Pulso de repouso: média das 3 últimas medidas contra a linha de base (mediana das 5 primeiras) */
+  const pulsos = corpo.filter(r => num(r.pulso) !== null).sort((x,y) => x.data < y.data ? -1 : 1).map(r => num(r.pulso));
+  if(pulsos.length >= 6){
+    const base = [...pulsos.slice(0,5)].sort((x,y) => x - y)[2];
+    const rec = media(pulsos.slice(-3));
+    if(rec - base >= 10) out.push(['ver', 'Pulso de repouso elevado', `Média recente de ${fmt(rec,0)} batimentos contra ${fmt(base,0)} no início. A retatrutida pode acelerar o coração: leve esse registro ao médico e não aumente a dose.`]);
+    else out.push(['ok', 'Pulso de repouso estável', `Média recente ${fmt(rec,0)} · base ${fmt(base,0)} batimentos por minuto.`]);
+  } else out.push(['neu', 'Pulso de repouso', `Conte o pulso ao acordar, ainda deitado, por 1 minuto. São necessárias 6 medidas para criar a sua base (faltam ${6 - pulsos.length}).`]);
+
+  /* 3. Sentinela de perda muscular: força estimada caindo 2 semanas seguidas */
+  const fs = forcaSemanal(), caindo = [];
+  Object.keys(fs).forEach(nm => {
+    const ks = Object.keys(fs[nm]).sort(); if(ks.length < 3) return;
+    const [a,b,c] = ks.slice(-3).map(k => fs[nm][k]);
+    if(b < a * 0.99 && c < b * 0.99) caindo.push(nm);
+  });
+  if(caindo.length >= 2) out.push(['ver', 'Sinal de perda muscular', `Força caindo há 2 semanas seguidas em: ${caindo.join('; ')}. Aumente as calorias e o sono antes de qualquer outra mudança.`]);
+  else if(caindo.length === 1) out.push(['amb', 'Atenção a um exercício', `Força caindo há 2 semanas em: ${caindo[0]}. Um exercício isolado pode ser só cansaço; se aparecer um segundo, é sinal de perda muscular.`]);
+  else out.push(['ok', 'Força preservada', 'Nenhum exercício com queda de força por 2 semanas seguidas.']);
+  return out;
+}
+
+function semanaDoCiclo(){
+  if(!ciclo) return null;
+  return Math.floor((dataDe(isoLocal(new Date())) - dataDe(ciclo)) / DIA_MS / 7) + 1;
+}
+function avisoDeload(){
+  const w = semanaDoCiclo(); if(!w) return '';
+  if(w >= 9) return `<div class="sinal ver"><b>Deload atrasado — semana ${w} do ciclo</b>Faça esta semana: mesmos exercícios, metade das séries, carga 10% menor. Depois toque em "Fiz o deload" na aba Corpo.</div>`;
+  if(w >= 6) return `<div class="sinal amb"><b>Semana ${w} do ciclo — deload nesta ou na próxima semana</b>Mesmos exercícios, metade das séries, carga 10% menor. É na recuperação que o músculo se constrói.</div>`;
+  return '';
+}
+function fizDeload(){
+  if(!confirm('Registrar que o deload foi feito e iniciar um novo ciclo hoje?')) return;
+  ciclo = isoLocal(new Date());
+  try{ localStorage.setItem(K_CICLO, ciclo); }catch(e){}
+  render(); toast('Novo ciclo iniciado');
 }
 
 /* ================= RENDERIZAÇÃO ================= */
 function render(){
   if(modoHistorico) return renderHistorico();
+  if(diaAtivo === 'CORPO') return renderCorpo();
   const p = PROGRAMA[diaAtivo];
-  const ult = ultimaSessao(diaAtivo);
   let i = 0, html = '';
 
-  html += `<div class="aviso"><b>Dia ${diaAtivo} · ${p.titulo}</b> — ${p.dia}<br>${p.nota}</div>`;
-  html += `<div class="lembrete"><b>Aquecimento</b> antes de cada exercício: ⅓ da carga × 15, depois ⅔ × 8.<br><b>Séries de trabalho</b>: pare com 1–2 repetições de sobra.</div>`;
+  html += avisoDeload();
+  html += `<div class="aviso"><b>${p.titulo}</b> — ${p.dia}<br>${p.nota}</div>`;
+  html += `<div class="lembrete"><b>Aquecimento</b> antes de cada exercício: ⅓ da carga × 15, depois ⅔ × 8.<br><b>Séries de trabalho</b>: pare com 1–2 repetições de sobra.<br><b>Selo verde de potência</b>: suba rápido e controlado, desça em 3 s, sem tranco.</div>`;
 
   p.blocos.forEach(bloco => {
     html += `<div class="grupo">${bloco.grupo}</div>`;
     bloco.exs.forEach(ex => {
       const ei = i;
-      const rec = melhorCarga(diaAtivo, ei);
-      const antes = ult ? (ult.dados[ei] || []) : [];
+      const rec = melhorCarga(ex.n);
+      const uv = ultimaVez(ex.n);
+      const antes = uv ? uv.sets : [];
       const salvo = (atual[diaAtivo] && atual[diaAtivo][ei]) || [];
 
       let linhas = '';
@@ -1008,7 +1207,8 @@ function render(){
         <div class="ex-topo">
           <span class="ex-num">${ei+1}</span><span class="ex-nome">${ex.n}</span>
           <div class="ex-alvo">${ex.alvo}</div>
-          <div class="chips"><span class="ex-meta">${ex.meta}</span><span class="ex-pausa">pausa ${ex.pausa}</span></div>
+          <div class="chips"><span class="ex-meta">${ex.meta}</span><span class="ex-pausa">pausa ${ex.pausa}</span>${ex.pot ? `<span class="ex-pot">${ex.pot}</span>` : ''}</div>
+          ${uv ? `<div class="ex-ult">Última vez: ${dataCurta(uv.data)} (${uv.rot})${rec ? ' · recorde ' + String(rec).replace('.', ',') + ' kg' : ''}</div>` : ''}
           <details class="tec" ${aberto[diaAtivo+ei] ? 'open' : ''} ontoggle="aberto['${diaAtivo}${ei}']=this.open">
             <summary>Técnica · como fazer · alternativa</summary>
             <div class="tec-in">
@@ -1053,13 +1253,15 @@ function marcarRecorde(el){
 
 /* ================= SALVAR ================= */
 function salvarSessao(){
+  if(!PROGRAMA[diaAtivo]) return toast('Abra a aba do treino do dia para salvar a sessão');
   const dados = atual[diaAtivo];
   if(!dados || !Object.keys(dados).length) return toast('Nada registrado neste dia ainda');
   let algum = false;
   Object.values(dados).forEach(arr => (arr||[]).forEach(x => { if(x && (x.kg || x.reps)) algum = true; }));
   if(!algum) return toast('Preencha ao menos uma série');
 
-  hist.push({ v: 6, data: new Date().toISOString(), dia: diaAtivo, titulo: PROGRAMA[diaAtivo].titulo, dados: JSON.parse(JSON.stringify(dados)) });
+  hist.push({ v: 7, data: new Date().toISOString(), dia: diaAtivo, titulo: PROGRAMA[diaAtivo].titulo, nomes: nomesDoDia(diaAtivo), dados: JSON.parse(JSON.stringify(dados)) });
+  if(!ciclo){ ciclo = isoLocal(new Date()); try{ localStorage.setItem(K_CICLO, ciclo); }catch(e){} }
   gravar(K_HIST, hist);
   delete atual[diaAtivo];
   gravar(K_ATUAL, atual);
@@ -1070,11 +1272,12 @@ function salvarSessao(){
 }
 
 function limparDia(){
-  if(!confirm('Apagar o que foi digitado no Dia ' + diaAtivo + '? O histórico não será afetado.')) return;
+  if(!PROGRAMA[diaAtivo]) return toast('Nada a limpar nesta aba');
+  if(!confirm('Apagar o que foi digitado em ' + PROGRAMA[diaAtivo].titulo + '? O histórico não será afetado.')) return;
   delete atual[diaAtivo];
   gravar(K_ATUAL, atual);
   render();
-  toast('Dia ' + diaAtivo + ' limpo');
+  toast(PROGRAMA[diaAtivo].titulo + ' limpo');
 }
 
 /* ================= HISTÓRICO ================= */
@@ -1093,9 +1296,7 @@ function renderHistorico(){
   }
   let html = htmlConfigSync() + '<div class="grupo">Sessões registradas</div>';
   [...hist].reverse().forEach((s, idx) => {
-    const p = PROGRAMA[s.dia];
-    const nomes = [];
-    p.blocos.forEach(b => b.exs.forEach(e => nomes.push(e.n)));
+    const nomes = nomesDaSessao(s);
     let linhas = '';
     Object.keys(s.dados).forEach(ei => {
       const sets = (s.dados[ei] || []).filter(x => x && (x.kg || x.reps));
@@ -1108,7 +1309,7 @@ function renderHistorico(){
       if(sets.length) linhas += `<div style="opacity:.7">${nm}: ` + sets.map(x => `${x.kg||'—'}kg×${x.reps||'—'}`).join('  ·  ') + '</div>';
     });
     html += `<div class="hist-item">
-      <div class="d">Dia ${s.dia} — ${s.titulo}</div>
+      <div class="d">${rotuloSessao(s)}</div>
       <div class="l" style="margin-bottom:7px">${dataCurta(s.data)}</div>
       <div class="l">${linhas}</div>
       <button onclick="apagarSessao(${hist.length-1-idx})"
@@ -1127,6 +1328,78 @@ function apagarSessao(i){
   toast('Sessão apagada');
 }
 
+
+/* ================= ABA CORPO ================= */
+function renderCorpo(){
+  const hoje = isoLocal(new Date());
+  const r = corpo.find(x => x.data === hoje) || {};
+  const v = k => r[k] ? String(r[k]).replace('.', ',') : '';
+  let html = avisoDeload();
+  html += `<div class="cartao"><h3>Registrar hoje — ${ddmm(hoje)}</h3>
+    <div class="campos">
+      <div><label>Peso em jejum (kg)</label><input id="c-peso" type="text" inputmode="decimal" placeholder="80,1" value="${v('peso')}"></div>
+      <div><label>Cintura (cm)</label><input id="c-cintura" type="text" inputmode="decimal" placeholder="94" value="${v('cintura')}"></div>
+      <div><label>Pulso ao acordar (bpm)</label><input id="c-pulso" type="text" inputmode="numeric" placeholder="62" value="${v('pulso')}"></div>
+      <div><label>Caminhada (minutos)</label><input id="c-caminhada" type="text" inputmode="numeric" placeholder="35" value="${v('caminhada')}"></div>
+    </div>
+    <button class="bt" onclick="salvarCorpo()">Salvar medidas de hoje</button>
+    <div style="font-size:12px;color:var(--tinta-clara);margin-top:9px;line-height:1.5">Peso: 3 vezes por semana, ao acordar, após urinar, antes de comer. Cintura: a cada 2 semanas, na altura do umbigo, sem encolher a barriga. Pulso: ao acordar, deitado, 1 minuto. Preencha só o que mediu.</div>
+  </div>`;
+
+  html += '<div class="grupo">Sinais de alerta</div>';
+  alertas().forEach(([cls, tit, txt]) => { html += `<div class="sinal ${cls === 'ok' ? '' : cls}"><b>${tit}</b>${txt}</div>`; });
+
+  const sem = semanasCorpo().slice(-8).reverse();
+  html += '<div class="grupo">Semana a semana</div>';
+  if(sem.length){
+    html += '<div class="cartao" style="padding:6px 10px"><table class="tab"><tr><th>Semana de</th><th>Peso médio</th><th>Variação</th><th>Cintura</th><th>Pulso</th><th>Caminhada</th></tr>';
+    sem.forEach((s, i) => {
+      const prox = sem.slice(i+1).find(x => x.peso.length);
+      const pm = media(s.peso), dv = (pm !== null && prox) ? pm - media(prox.peso) : null;
+      const cls = dv === null ? '' : dv < -0.5 ? 'rapido' : dv < 0 ? 'desce' : dv > 0 ? 'sobe' : '';
+      html += `<tr><td>${ddmm(s.ini)}</td><td>${fmt(pm)}</td><td class="${cls}">${dv === null ? '—' : (dv > 0 ? '+' : '') + fmt(dv)}</td>
+        <td>${fmtCm(s.cintura.length ? s.cintura[s.cintura.length-1] : null)}</td><td>${fmt(media(s.pulso), 0)}</td><td>${s.caminhada ? s.caminhada + ' min' : '—'}</td></tr>`;
+    });
+    html += '</table><div style="font-size:12px;color:var(--tinta-clara);padding:8px 0 4px">Variação em vermelho: queda acima de 0,5 kg na semana. Meta de caminhada: 60–80 minutos por semana (quarta e sábado).</div></div>';
+  }
+
+  const cint = [...corpo].filter(x => num(x.cintura) !== null).sort((a,b) => a.data < b.data ? -1 : 1).pop();
+  const cv = cint ? num(cint.cintura) : 94;
+  const rel = cv / ALTURA_CM;
+  html += `<div class="grupo">Cintura e meta</div><div class="cartao" style="font-size:14px;line-height:1.6">
+    Cintura atual: <b>${fmtCm(cv)} cm</b>${cint ? ' (' + ddmm(cint.data) + ')' : ' (referência de set/2026)'} · meta: <b>abaixo de 86 cm</b><br>
+    Relação cintura ÷ altura: <b>${fmt(rel, 2)}</b> — ${rel < 0.5 ? '<span class="desce">dentro da faixa saudável</span>' : 'faltam ' + fmt(cv - 86, 0) + ' cm para a faixa saudável (abaixo de 0,50)'}</div>`;
+
+  const w = semanaDoCiclo();
+  html += `<div class="grupo">Ciclo de treino</div><div class="cartao" style="font-size:14px;line-height:1.6">
+    ${w ? `Semana <b>${w}</b> do ciclo (início em ${ddmm(ciclo)}). Deload entre a semana 6 e a 8.` : 'O ciclo começa automaticamente ao salvar a primeira sessão.'}
+    <button class="bt sec" onclick="fizDeload()">Fiz o deload — iniciar novo ciclo</button>
+    <button class="bt sec" onclick="exportarCorpo()">Exportar medidas (planilha)</button></div>`;
+
+  document.getElementById('tela').innerHTML = html;
+}
+
+function salvarCorpo(){
+  const hoje = isoLocal(new Date());
+  const pega = id => document.getElementById(id).value.trim().replace(',', '.');
+  const novo = {data: hoje, peso: pega('c-peso'), cintura: pega('c-cintura'), pulso: pega('c-pulso'), caminhada: pega('c-caminhada')};
+  if(!novo.peso && !novo.cintura && !novo.pulso && !novo.caminhada) return toast('Preencha ao menos um campo');
+  const ruim = [['peso',40,200],['cintura',50,180],['pulso',30,150],['caminhada',1,600]].find(([k,a,b]) => novo[k] && (num(novo[k]) === null || num(novo[k]) < a || num(novo[k]) > b));
+  if(ruim) return toast('Confira o valor de ' + ruim[0]);
+  const i = corpo.findIndex(x => x.data === hoje);
+  if(i >= 0) corpo[i] = novo; else corpo.push(novo);
+  corpo.sort((a,b) => a.data < b.data ? -1 : 1);
+  gravar(K_CORPO, corpo);
+  render(); toast('Medidas salvas — faça o backup');
+}
+
+async function exportarCorpo(){
+  const l = ['Data;Peso (kg);Cintura (cm);Pulso (bpm);Caminhada (min)'];
+  corpo.forEach(r => l.push([ddmm(r.data) + '/' + r.data.slice(0,4), r.peso, r.cintura, r.pulso, r.caminhada].map(x => String(x || '').replace('.', ',')).join(';')));
+  const txt = '﻿' + l.join('\r\n');
+  const n = nomeArquivo('csv').replace('treino-', 'medidas-');
+  if(await baixar(txt, n, 'text/csv')) toast('Escolha onde salvar'); else abrirCopia(l.join('\n'));
+}
 
 /* ================= SINCRONIZAÇÃO COM O GOOGLE DRIVE ================= */
 const K_URL_SYNC = 'lib_treino_url_sync';
@@ -1157,11 +1430,10 @@ async function sincronizarDrive(){
   if(!navigator.onLine){ selo('Salvo no celular · Drive: sem sinal, envia na próxima vez', ''); return; }
   const linhas = [];
   hist.forEach(s => {
-    const p = PROGRAMA[s.dia]; if(!p) return;
-    const nomes = []; p.blocos.forEach(b => b.exs.forEach(e => nomes.push(e.n)));
+    const nomes = nomesDaSessao(s);
     Object.keys(s.dados || {}).forEach(ei => (s.dados[ei] || []).forEach((x, i) => {
       if(!x || (!x.kg && !x.reps)) return;
-      linhas.push([dataCurta(s.data), s.dia, p.titulo, nomes[ei] || 'Exercicio ' + (+ei+1), (i+1)+'a', x.kg || '', x.reps || '']);
+      linhas.push([dataCurta(s.data), s.dia, s.titulo, nomes[ei] || 'Exercicio ' + (+ei+1), (i+1)+'a', x.kg || '', x.reps || '']);
     }));
   });
   try{
@@ -1217,10 +1489,12 @@ async function baixar(texto, nome, tipo){
 async function exportarBackup(){
   const pacote = {
     aplicativo: 'Treino Liberato',
-    versao: 6,
+    versao: 7,
     gerado_em: new Date().toISOString(),
     em_andamento: atual,
-    historico: hist
+    historico: hist,
+    corpo: corpo,
+    ciclo: ciclo
   };
   const txt = JSON.stringify(pacote, null, 2);
   if(await baixar(txt, nomeArquivo('json'), 'application/json')){
@@ -1234,23 +1508,22 @@ async function exportarPlanilha(){
   if(!hist.length && !Object.keys(atual).length) return toast('Nada para exportar ainda');
   const linhas = ['Data;Dia;Treino;Exercicio;Serie;Carga (kg);Repeticoes'];
 
-  function despejar(dataISO, dia, dados){
-    const p = PROGRAMA[dia]; if(!p) return;
-    const nomes = []; p.blocos.forEach(b => b.exs.forEach(e => nomes.push(e.n)));
+  function despejar(dataISO, dia, dados, nomes, titulo){
+    if(!nomes || !nomes.length) return;
     Object.keys(dados).forEach(ei => {
       (dados[ei] || []).forEach((x, s) => {
         if(!x || (!x.kg && !x.reps)) return;
         linhas.push([
           dataISO ? dataCurta(dataISO) : dataCurta(new Date().toISOString()),
-          dia, p.titulo, (nomes[ei] || 'Exercicio ' + (+ei+1)),
+          dia, titulo, (nomes[ei] || 'Exercicio ' + (+ei+1)),
           (s+1) + 'a', (x.kg || ''), (x.reps || '')
         ].join(';'));
       });
     });
   }
 
-  hist.forEach(s => despejar(s.data, s.dia, s.dados));
-  Object.keys(atual).forEach(dia => despejar(null, dia, atual[dia]));
+  hist.forEach(s => despejar(s.data, s.dia, s.dados, nomesDaSessao(s), s.titulo));
+  Object.keys(atual).forEach(dia => { if(PROGRAMA[dia]) despejar(null, dia, atual[dia], nomesDoDia(dia), PROGRAMA[dia].titulo); });
 
   const txt = '\uFEFF' + linhas.join('\r\n');
   if(await baixar(txt, nomeArquivo('csv'), 'text/csv')){
@@ -1282,6 +1555,8 @@ function importarArquivo(input){
       hist = p.historico;
       atual = p.em_andamento || {};
       if(!(p.versao >= 6)) migrarTudo();
+      if(Array.isArray(p.corpo)){ corpo = p.corpo; gravar(K_CORPO, corpo); }
+      if(p.ciclo){ ciclo = p.ciclo; try{ localStorage.setItem(K_CICLO, ciclo); }catch(e){} }
       gravar(K_HIST, hist);
       gravar(K_ATUAL, atual);
       modoHistorico = false;
