@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Treino">
 <meta name="theme-color" content="#1B2A3A">
-<title>Treino — Liberato (v7)</title>
+<title>Treino — Liberato (v7.1)</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icone-192.png">
 <link rel="apple-touch-icon" href="icone-192.png">
@@ -242,13 +242,32 @@ details.tec[open] summary::after{transform:rotate(180deg)}
 .tab th:first-child,.tab td:first-child{text-align:left}
 .desce{color:var(--verde);font-weight:700}.sobe{color:var(--vinho);font-weight:700}.rapido{color:var(--vinho);font-weight:700}
 nav button{font-size:14px;padding:12px 2px 10px}
+/* ---------- v7.1 ---------- */
+.ex-im{margin-top:10px;font-size:14px;line-height:1.5;background:var(--azul-fraco);color:#163F61;padding:8px 11px;border-radius:6px}
+.ex-im b{color:var(--azul)}
+.ex-reg{margin-top:8px;font-size:13px;line-height:1.5;color:var(--tinta-clara)}
+.ex-reg b{color:var(--tinta)}
+.ajuste{display:block;width:100%;margin-top:7px;font-family:inherit;font-size:14px;padding:8px 10px;border:1px dashed #9A9285;border-radius:6px;background:#fff;color:var(--tinta)}
+.ajuste:focus{outline:none;border-style:solid;border-color:var(--azul)}
+.ex-prox{margin-top:8px;font-size:13px;font-weight:700;line-height:1.45;color:var(--verde);background:var(--verde-fraco);padding:7px 10px;border-radius:5px}
+.pl-link{display:block;font-size:13px;color:var(--azul);text-align:center;margin:-6px 0 14px;text-decoration:none;font-weight:600}
+.pl-troca{display:block;text-align:right;font-size:12px;color:var(--tinta-clara);margin:4px 0 14px}
+.barra .mais{display:none}
+.barra.aberta .mais{display:flex}
+body.mais-aberto{padding-bottom:150px}
+.guia ol,.guia ul{margin:0;padding-left:21px;font-size:15px;line-height:1.55}
+.guia li{margin-bottom:7px}
+.guia li:last-child{margin-bottom:0}
+.regra{margin-top:12px;background:var(--verde-fraco);color:#1F4A2A;padding:9px 11px;border-radius:6px;font-size:14px;line-height:1.5}
+.campos .largo{grid-column:1 / -1}
+.series input::placeholder{color:#B5AC9E;font-weight:500}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v7</span></h1>
+  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v7.1</span></h1>
   <div class="sub" id="hoje"></div>
 </header>
 
@@ -267,14 +286,17 @@ nav button{font-size:14px;padding:12px 2px 10px}
 
 <input type="file" id="arquivo" accept=".json,application/json" style="display:none" onchange="importarArquivo(this)">
 
-<div class="barra">
+<div class="barra" id="barra">
   <div class="fila">
     <button class="b-salvar" onclick="salvarSessao()">Salvar sessão</button>
     <button class="b-hist" onclick="verHistorico()">Histórico</button>
   </div>
   <div class="fila">
     <button class="b-backup" onclick="exportarBackup()">Backup (Drive)</button>
-    <button class="b-backup" onclick="exportarPlanilha()">Planilha</button>
+    <button class="b-limpar" id="b-mais" onclick="alternarMais()">Mais ▾</button>
+  </div>
+  <div class="fila mais">
+    <button class="b-limpar" onclick="exportarPlanilha()">Planilha</button>
     <button class="b-limpar" onclick="document.getElementById('arquivo').click()">Restaurar</button>
     <button class="b-limpar" onclick="limparDia()">Limpar</button>
   </div>
@@ -312,7 +334,7 @@ const PROGRAMA = {
        "delt_ant",
        "triceps"
       ],
-      "dica": "Pegadores entre a clavícula e o mamilo. Escápulas travadas. Não trave os cotovelos.",
+      "dica": "Pegadores na linha do meio do peito. Escápulas juntas e para baixo, costas coladas no encosto. Cotovelos a 30–60° do tronco, como no arqueiro, nunca em cruz. Não trave os cotovelos.",
       "erro": "Ombros saindo do encosto — a carga passa para a articulação.",
       "alt": "Supino reto com halteres (carga moderada)",
       "v": "supino máquina articulada execução correta",
@@ -349,7 +371,7 @@ const PROGRAMA = {
        "delt_ant",
        "triceps"
       ],
-      "dica": "Banco entre 30° e 45°. Desça até a parte alta do peito. O mais importante do dia.",
+      "dica": "Encosto entre 30° e 45°. Escápulas presas e cotovelos a 30–60° do tronco, como no arqueiro. Volte só até a linha do corpo.",
       "erro": "Banco acima de 45° — vira treino de ombro.",
       "alt": "Supino inclinado com halteres, 30°",
       "v": "supino inclinado smith execução correta"
@@ -595,7 +617,7 @@ const PROGRAMA = {
        "delt_lat",
        "triceps"
       ],
-      "dica": "Costas apoiadas. Pegadores na altura das orelhas. Não trave os cotovelos no topo.",
+      "dica": "Costas apoiadas. Pegadores na altura das orelhas. Cotovelos um pouco à frente do corpo, punhos sobre os cotovelos. Não trave os cotovelos no topo.",
       "erro": "Descer abaixo da orelha com carga alta — estresse no manguito rotador.",
       "alt": "Desenvolvimento com halteres, sentado com encosto, carga menor",
       "v": "desenvolvimento ombros máquina execução correta"
@@ -654,7 +676,7 @@ const PROGRAMA = {
        "delt_ant",
        "triceps"
       ],
-      "dica": "Banco entre 30° e 45°. Desça até a parte alta do peito. O mais importante do dia.",
+      "dica": "Encosto entre 30° e 45°. Escápulas presas e cotovelos a 30–60° do tronco, como no arqueiro. Volte só até a linha do corpo.",
       "erro": "Banco acima de 45° — vira treino de ombro.",
       "alt": "Supino inclinado com halteres, 30°",
       "v": "supino inclinado smith execução correta"
@@ -897,6 +919,9 @@ const PROGRAMA = {
 const LEGADO = {"A": {"titulo": "Peito + Tríceps", "nomes": ["Supino máquina articulado", "Supino inclinado (máquina ou Smith)", "Voador (peck deck)", "Crossover na polia baixa", "Tríceps na polia — barra reta", "Tríceps corda na polia", "Tríceps francês na polia"]}, "B": {"titulo": "Costas + Bíceps", "nomes": ["Puxada frontal na polia alta", "Remada sentada na polia baixa", "Remada articulada na máquina", "Pullover na polia alta", "Crucifixo inverso na máquina", "Rosca direta na polia baixa", "Rosca martelo com corda"]}, "C": {"titulo": "Pernas + Abdome", "nomes": ["Leg press 45°", "Cadeira extensora", "Mesa flexora", "Cadeira flexora sentada", "Adutora e abdutora", "Panturrilha no leg press", "Abdominal na máquina", "Prancha isométrica"]}, "D": {"titulo": "Ombros + Trapézio", "nomes": ["Desenvolvimento na máquina", "Elevação lateral na máquina", "Crucifixo inverso na máquina", "Face pull na polia alta", "Encolhimento na máquina", "Abdominal na máquina"]}};
 
 
+/* v7.1: analogia ("Imagine") e regulagem da máquina ("Antes da 1ª série") por exercício, pelo nome. */
+const EXTRA = {"Supino máquina articulado": {"im": "Empurre como quem afasta alguém com firmeza, as duas mãos no peito da pessoa: ninguém faz isso com o cotovelo levantado.", "reg": "Banco com os pegadores na linha do meio do peito. Pegada vertical, se houver. Costas inteiras no encosto, escápulas juntas e para baixo."}, "Puxada frontal na polia alta": {"im": "As mãos são ganchos; quem puxa são os cotovelos, descendo em direção aos bolsos da calça.", "reg": "Trava das coxas firme, sem folga. Pés no chão. Pegada um pouco mais aberta que os ombros."}, "Supino inclinado (máquina ou Smith)": {"im": "Empurre como quem coloca uma caixa pesada numa prateleira alta à sua frente: cotovelos baixos, ombros longe das orelhas.", "reg": "Encosto entre 30° e 45°. Banco com os pegadores na altura do alto do peito. Costas e cabeça no encosto."}, "Remada sentada na polia baixa": {"im": "Puxe como quem abre uma gaveta funda e pesada: tronco parado, cotovelos passando rente ao corpo.", "reg": "Pés apoiados, joelhos levemente dobrados. Sente a uma distância em que, de braços esticados, a carga ainda não encoste na pilha."}, "Elevação lateral na máquina": {"im": "Empurre as paredes da sala com os cotovelos, até a altura dos ombros.", "reg": "Banco com o ombro alinhado ao eixo de giro da máquina. Apoios encostados no braço, logo acima do cotovelo."}, "Tríceps na polia — barra reta": {"im": "Os cotovelos são dobradiças pregadas nas costelas: só o antebraço abre e fecha, como uma porta.", "reg": "Polia no alto, barra reta. Um passo atrás da máquina, tronco levemente à frente, pés firmes."}, "Rosca direta na polia baixa": {"im": "Suba como quem traz uma bandeja até o peito, sem levantar os cotovelos e sem jogar o corpo para trás.", "reg": "Polia no ponto mais baixo, barra reta. Perto da máquina, joelhos destravados, abdômen firme."}, "Leg press 45°": {"im": "Empurre o chão para longe. Os joelhos correm como trilhos, na direção dos dedos dos pés.", "reg": "Encosto numa inclinação em que lombar e quadril fiquem colados na descida. Pés no meio da plataforma, na largura dos ombros. Solte as travas só depois de esticar as pernas e trave de novo ao terminar."}, "Mesa flexora": {"im": "Volte como quem fecha uma porta pesada sem deixar bater: 3 segundos na descida.", "reg": "Joelho logo além da borda do banco, alinhado ao eixo da máquina. Rolo logo acima do calcanhar."}, "Cadeira extensora": {"im": "Suba como uma ponte levadiça: devagar, segure 1 segundo no alto e desça controlando.", "reg": "Encosto ajustado para o joelho ficar alinhado ao eixo da máquina. Rolo na frente da canela, logo acima do tornozelo."}, "Adutora e abdutora": {"im": "Adutora: feche como quem aperta uma bola de praia entre os joelhos. Abdutora: abra como quem afasta duas portas de vaivém.", "reg": "Comece com uma abertura que não incomode a virilha e aumente aos poucos. Costas no encosto."}, "Panturrilha no leg press": {"im": "Suba como quem fica na ponta dos pés para alcançar a prateleira mais alta, e segure 1 segundo.", "reg": "Só a parte da frente dos pés na borda de baixo da plataforma, calcanhares para fora. Joelhos esticados sem travar. Travas de segurança acionadas, se a máquina permitir."}, "Crucifixo inverso na máquina": {"im": "Abra os braços como quem abre uma cortina pesada pelos dois lados, puxando pelos cotovelos.", "reg": "Peito no apoio. Banco com os pegadores na altura dos ombros. Comece com os braços à frente do peito."}, "Abdominal na máquina": {"im": "Enrole o tronco como quem enrola um tapete, e solte o ar como quem apaga uma vela.", "reg": "Banco com o apoio na altura do peito e os pés presos. Carga leve: o movimento é curto."}, "Desenvolvimento na máquina": {"im": "Empurre como quem põe a mala no bagageiro do ônibus: cotovelos um pouco à frente do corpo, nunca abertos para trás.", "reg": "Banco com os pegadores na altura das orelhas. Costas inteiras no encosto. Pegada vertical, se houver."}, "Puxada com triângulo (pegada neutra)": {"im": "As mãos são só ganchos; quem puxa são os cotovelos, descendo até encostar nas costelas.", "reg": "Triângulo no cabo da polia alta. Trava das coxas firme. Tronco levemente para trás, peito alto."}, "Remada articulada na máquina": {"im": "Dê uma cotovelada em alguém atrás de você e segure um lápis entre as escápulas.", "reg": "Banco com o peito no apoio e os pegadores na altura do meio do peito. Braços quase esticados no início, sem tirar o peito do apoio."}, "Voador (peck deck)": {"im": "Abrace uma árvore grossa: braços curvos, peito aberto.", "reg": "Banco com os cotovelos na altura do peito. Ajuste o início para que os braços fiquem na linha do corpo, não atrás dele."}, "Tríceps corda na polia": {"im": "Embaixo, abra a corda como quem rasga um papel ao meio.", "reg": "Polia no alto, com a corda. Um passo atrás, cotovelos colados ao corpo."}, "Rosca martelo com corda": {"im": "Segure como quem segura dois martelos, polegares para cima, e suba sem mover os cotovelos.", "reg": "Polia no ponto mais baixo, com a corda. Perto da máquina, cotovelos junto ao corpo."}, "Cadeira flexora sentada": {"im": "Dobre os joelhos como quem puxa a terra com os calcanhares; volte devagar, sem deixar a carga despencar.", "reg": "Joelho alinhado ao eixo da máquina. Trava da coxa firme, logo acima do joelho. Rolo logo acima do calcanhar."}, "Panturrilha sentado na máquina": {"im": "Suba como quem fica na ponta dos pés para espiar por cima de um muro, e segure 1 segundo.", "reg": "Apoio sobre as coxas, logo acima dos joelhos. Só a parte da frente dos pés na plataforma, calcanhares soltos."}, "Face pull na polia alta": {"im": "Termine na posição de quem se rende: mãos ao lado das orelhas, cotovelos altos.", "reg": "Polia na altura da testa, com a corda. Um passo atrás, pés firmes, tronco parado."}, "Prancha isométrica": {"im": "Deixe o corpo como uma tábua de passar roupa: reto da cabeça aos calcanhares, sem barriga caída nem quadril alto.", "reg": "Antebraços no chão, cotovelos embaixo dos ombros, pés na largura do quadril. Respire normalmente."}, "Equilíbrio em um pé só": {"im": "Fique como uma garça no rio: um pé firme, o olhar parado num ponto.", "reg": "Ao lado de um apoio fixo, mão a 2 cm dele, sem tocar."}};
+
 /* ================= FIGURA MUSCULAR ================= */
 const F_BASE='#E6E1D8', F_SEC='#EDB9A6', F_PRI='#A8322A', F_TR='#B9B1A4';
 function figura(pri, sec){
@@ -1012,6 +1037,24 @@ if(!Array.isArray(corpo)){
 }
 let ciclo = (function(){ try{ return localStorage.getItem(K_CICLO) || ''; }catch(e){ return ''; } })();
 
+/* ================= v7.1: AJUSTES, PLAYLISTS, BACKUP ================= */
+const K_AJUSTE   = 'lib_treino_v71_ajuste';    // {nome do exercício: 'banco no furo 4'}
+const K_PLAYLIST = 'lib_treino_v71_playlist';  // {S1: link da playlist do YouTube, ...}
+const K_BACKUP   = 'lib_treino_v71_backup';    // data do último backup (AAAA-MM-DD)
+const K_V71      = 'lib_treino_v71_migrado';
+let ajustes   = ler(K_AJUSTE, {}) || {};
+let playlists = ler(K_PLAYLIST, {}) || {};
+let ultimoBackup = (function(){ try{ return localStorage.getItem(K_BACKUP) || ''; }catch(e){ return ''; } })();
+let editandoPlaylist = false;
+/* O programa Superior/Inferior começou em 06/10/2026: o ciclo do deload conta a partir daí. */
+try{
+  if(!localStorage.getItem(K_V71)){
+    if(!ciclo || ciclo > '2026-10-06'){ ciclo = '2026-10-06'; localStorage.setItem(K_CICLO, ciclo); }
+    localStorage.setItem(K_V71, '1');
+  }
+}catch(e){}
+const esc = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 /* Nomes dos exercícios de uma sessão salva (v7 guarda os nomes; v6 e anteriores usam o LEGADO). */
 function nomesDaSessao(s){
   if(Array.isArray(s.nomes)) return s.nomes;
@@ -1023,8 +1066,8 @@ function nomesDaSessao(s){
 function nomesDoDia(d){ const n = []; PROGRAMA[d].blocos.forEach(b => b.exs.forEach(e => n.push(e.n))); return n; }
 function rotuloSessao(s){ return LEGADO[s.dia] && !s.nomes ? 'Dia ' + s.dia + ' — ' + s.titulo + ' (divisão antiga)' : s.titulo; }
 
-/* Aba inicial conforme o dia da semana: seg Sup 1, ter Inf 1, qui Sup 2, sex Inf 2; demais dias, Corpo. */
-let diaAtivo = ({1:'S1', 2:'I1', 4:'S2', 5:'I2'})[new Date().getDay()] || 'CORPO';
+/* Aba inicial conforme o dia da semana: seg Sup 1, ter Inf 1, qui Sup 2, sex Inf 2; demais dias, Guia. */
+let diaAtivo = ({1:'S1', 2:'I1', 4:'S2', 5:'I2'})[new Date().getDay()] || 'GUIA';
 let modoHistorico = false;
 const aberto = {};
 
@@ -1047,9 +1090,10 @@ function montarAbas(){
     `<button class="${d===diaAtivo && !modoHistorico ? 'on':''}" onclick="irPara('${d}')">
        ${PROGRAMA[d].aba}<small>${PROGRAMA[d].dia}</small>
      </button>`).join('') +
-    `<button class="${diaAtivo==='CORPO' && !modoHistorico ? 'on':''}" onclick="irPara('CORPO')">Corpo<small>medidas</small></button>`;
+    `<button class="${diaAtivo==='CORPO' && !modoHistorico ? 'on':''}" onclick="irPara('CORPO')">Corpo<small>medidas</small></button>` +
+    `<button class="${diaAtivo==='GUIA' && !modoHistorico ? 'on':''}" onclick="irPara('GUIA')">Guia<small>roteiro</small></button>`;
 }
-function irPara(d){ diaAtivo = d; modoHistorico = false; montarAbas(); render(); window.scrollTo(0,0); }
+function irPara(d){ diaAtivo = d; modoHistorico = false; editandoPlaylist = false; montarAbas(); render(); window.scrollTo(0,0); }
 
 /* ================= MELHOR MARCA E ÚLTIMA VEZ (pelo nome do exercício, em qualquer dia) ================= */
 function temDado(arr){ return (arr || []).some(x => x && (x.kg || x.reps)); }
@@ -1118,17 +1162,18 @@ function alertas(){
     const a = sp[sp.length-2], b = sp[sp.length-1];
     const dias = (dataDe(b.ini) - dataDe(a.ini)) / DIA_MS / 7 || 1;
     const queda = (media(a.peso) - media(b.peso)) / dias;
-    if(queda > 0.5) out.push(['ver', 'Perda de peso rápida demais', `A média caiu ${fmt(queda,2)} kg por semana. Acima de 0,5 kg, nesta idade, sai músculo junto. Coma mais (sobretudo carboidrato no dia de treino) e confira se a dose não está tirando o apetite em excesso.`]);
+    if(queda > 0.5) out.push(['ver', 'Perda de peso rápida demais', `A média caiu ${fmt(queda,2)} kg por semana. Acima de 0,5 kg, nesta idade, sai músculo junto. Coma mais, sobretudo carboidrato no dia de treino.`]);
     else if(queda < -0.3) out.push(['amb', 'Peso subindo', `A média subiu ${fmt(-queda,2)} kg na semana. Numa fase de déficit, revise as porções antes de mudar o treino.`]);
     else out.push(['ok', 'Ritmo de perda adequado', `Variação de ${fmt(-queda,2)} kg na última semana — dentro do limite de 0,5 kg.`]);
-  } else out.push(['neu', 'Ritmo de perda', 'Pese-se em jejum 3 vezes por semana. Com duas semanas de registros a avaliação aparece aqui.']);
+  } else out.push(['neu', 'Ritmo de perda', 'Pese-se em jejum nas manhãs dos dias de treino. Com duas semanas de registros a avaliação aparece aqui.']);
 
   /* 2. Pulso de repouso: média das 3 últimas medidas contra a linha de base (mediana das 5 primeiras) */
   const pulsos = corpo.filter(r => num(r.pulso) !== null).sort((x,y) => x.data < y.data ? -1 : 1).map(r => num(r.pulso));
   if(pulsos.length >= 6){
     const base = [...pulsos.slice(0,5)].sort((x,y) => x - y)[2];
     const rec = media(pulsos.slice(-3));
-    if(rec - base >= 10) out.push(['ver', 'Pulso de repouso elevado', `Média recente de ${fmt(rec,0)} batimentos contra ${fmt(base,0)} no início. A retatrutida pode acelerar o coração: leve esse registro ao médico e não aumente a dose.`]);
+    if(rec - base >= 10) out.push(['ver', 'Pulso de repouso elevado', `Média recente de ${fmt(rec,0)} batimentos contra ${fmt(base,0)} no início. Leve esse registro ao médico.`]);
+    else if(rec - base >= 5) out.push(['amb', 'Pulso de repouso subindo', `Média recente de ${fmt(rec,0)} batimentos contra ${fmt(base,0)} no início. Pode ser cansaço acumulado ou sono ruim: avise no chat.`]);
     else out.push(['ok', 'Pulso de repouso estável', `Média recente ${fmt(rec,0)} · base ${fmt(base,0)} batimentos por minuto.`]);
   } else out.push(['neu', 'Pulso de repouso', `Conte o pulso ao acordar, ainda deitado, por 1 minuto. São necessárias 6 medidas para criar a sua base (faltam ${6 - pulsos.length}).`]);
 
@@ -1142,6 +1187,18 @@ function alertas(){
   if(caindo.length >= 2) out.push(['ver', 'Sinal de perda muscular', `Força caindo há 2 semanas seguidas em: ${caindo.join('; ')}. Aumente as calorias e o sono antes de qualquer outra mudança.`]);
   else if(caindo.length === 1) out.push(['amb', 'Atenção a um exercício', `Força caindo há 2 semanas em: ${caindo[0]}. Um exercício isolado pode ser só cansaço; se aparecer um segundo, é sinal de perda muscular.`]);
   else out.push(['ok', 'Força preservada', 'Nenhum exercício com queda de força por 2 semanas seguidas.']);
+
+  /* 4. Pressão arterial: leituras de 14/9 ou mais nos últimos 7 dias */
+  const comPA = corpo.filter(r => leiturasPA(r.pa).length).sort((x,y) => x.data < y.data ? -1 : 1);
+  if(comPA.length){
+    const ult = comPA[comPA.length-1], hojeD = dataDe(isoLocal(new Date()));
+    const recentes = comPA.filter(r => (hojeD - dataDe(r.data)) / DIA_MS <= 7).flatMap(r => leiturasPA(r.pa));
+    const altas = recentes.filter(([a,b]) => a >= 140 || b >= 90);
+    const txt = leiturasPA(ult.pa).map(([a,b]) => a + '/' + b).join(' · ');
+    if(altas.length >= 2) out.push(['ver', 'Pressão alta repetida', `${altas.length} leituras de 14/9 ou mais nos últimos 7 dias. Procure o médico sem esperar a consulta.`]);
+    else if(altas.length === 1) out.push(['amb', 'Uma leitura de pressão alta', 'Uma leitura de 14/9 ou mais nos últimos 7 dias. Meça de novo amanhã, sentado e depois de 5 minutos de repouso.']);
+    else out.push(['ok', 'Pressão dentro do esperado', `Última medição (${ddmm(ult.data)}): ${txt} mmHg.`]);
+  } else out.push(['neu', 'Pressão arterial', 'Nos 7 dias antes da consulta, meça sentado, depois de 5 minutos de repouso, duas vezes de manhã e duas à noite.']);
   return out;
 }
 
@@ -1166,12 +1223,14 @@ function fizDeload(){
 function render(){
   if(modoHistorico) return renderHistorico();
   if(diaAtivo === 'CORPO') return renderCorpo();
+  if(diaAtivo === 'GUIA') return renderGuia();
   const p = PROGRAMA[diaAtivo];
   let i = 0, html = '';
 
-  html += avisoDeload();
+  html += avisoDeload() + aviso48h(diaAtivo) + avisoBackup();
   html += `<div class="aviso"><b>${p.titulo}</b> — ${p.dia}<br>${p.nota}</div>`;
-  html += `<div class="lembrete"><b>Aquecimento</b> antes de cada exercício: ⅓ da carga × 15, depois ⅔ × 8.<br><b>Séries de trabalho</b>: pare com 1–2 repetições de sobra.<br><b>Selo verde de potência</b>: suba rápido e controlado, desça em 3 s, sem tranco.</div>`;
+  html += htmlPlaylist(diaAtivo);
+  html += `<div class="lembrete"><b>Antes de tudo</b>: regule a máquina (linha "Antes da 1ª série").<br><b>Aquecimento</b>: ⅓ da carga × 15, depois ⅔ × 8. Não se anota.<br><b>Séries de trabalho</b>: mesma carga em todas, parando com 1–2 repetições de sobra. Digite o peso na 1ª série e ele se repete nas outras.<br><b>Respire</b>: solte o ar no esforço, como quem apaga uma vela. Nunca prenda.<br><b>Selo verde de potência</b>: suba rápido e controlado, desça em 3 s, sem tranco.</div>`;
 
   p.blocos.forEach(bloco => {
     html += `<div class="grupo">${bloco.grupo}</div>`;
@@ -1181,6 +1240,9 @@ function render(){
       const uv = ultimaVez(ex.n);
       const antes = uv ? uv.sets : [];
       const salvo = (atual[diaAtivo] && atual[diaAtivo][ei]) || [];
+      const ext = EXTRA[ex.n];
+      const prox = proximaVez(ex);
+      const phKg = prox && prox.kg !== null ? fmtKg(prox.kg) : 'kg';
 
       let linhas = '';
       for(let s = 0; s < ex.series; s++){
@@ -1192,7 +1254,7 @@ function render(){
         linhas += `
         <div class="serie-lin">
           <div class="serie-n">${s+1}ª</div>
-          <input type="number" inputmode="decimal" placeholder="kg" value="${v.kg}"
+          <input type="number" inputmode="decimal" placeholder="${phKg}" value="${v.kg}"
                  data-d="${diaAtivo}" data-e="${ei}" data-s="${s}" data-c="kg" data-rec="${rec}"
                  oninput="anotar(this)">
           <input type="number" inputmode="numeric" placeholder="reps" value="${v.reps}"
@@ -1208,7 +1270,10 @@ function render(){
           <span class="ex-num">${ei+1}</span><span class="ex-nome">${ex.n}</span>
           <div class="ex-alvo">${ex.alvo}</div>
           <div class="chips"><span class="ex-meta">${ex.meta}</span><span class="ex-pausa">pausa ${ex.pausa}</span>${ex.pot ? `<span class="ex-pot">${ex.pot}</span>` : ''}</div>
+          ${ext ? `<div class="ex-im"><b>Imagine:</b> ${ext.im}</div><div class="ex-reg"><b>Antes da 1ª série:</b> ${ext.reg}</div>` : ''}
+          <input class="ajuste" type="text" placeholder="Seu ajuste (ex.: banco no furo 4)" value="${esc(ajustes[ex.n])}" data-n="${encodeURIComponent(ex.n)}" onchange="salvarAjuste(this)">
           ${uv ? `<div class="ex-ult">Última vez: ${dataCurta(uv.data)} (${uv.rot})${rec ? ' · recorde ' + String(rec).replace('.', ',') + ' kg' : ''}</div>` : ''}
+          ${prox ? `<div class="ex-prox">${prox.txt}</div>` : ''}
           <details class="tec" ${aberto[diaAtivo+ei] ? 'open' : ''} ontoggle="aberto['${diaAtivo}${ei}']=this.open">
             <summary>Técnica · como fazer · alternativa</summary>
             <div class="tec-in">
@@ -1217,7 +1282,7 @@ function render(){
               <div class="bl"><b>Como fazer</b>${ex.dica}</div>
               <div class="bl erro"><b>Evite</b>${ex.erro}</div>
               <div class="bl alt"><b>Máquina ocupada?</b>${ex.alt}<br><small>Mesma faixa de repetições. A carga não vale como recorde.</small></div>
-              <a class="ex-video" href="${YT(ex.v)}" target="_blank" rel="noopener">Ver vídeo (opcional)</a>
+              <a class="ex-video" href="${YT(ex.v)}" target="_blank" rel="noopener">Procurar vídeos no YouTube</a>
               <div class="vid-nota">Os vídeos são de terceiros e às vezes divergem entre si. Havendo conflito, vale o que está neste cartão.</div>
             </div>
           </details>
@@ -1239,8 +1304,23 @@ function anotar(el){
   const {d, e, s, c} = el.dataset;
   atual[d] = atual[d] || {};
   atual[d][e] = atual[d][e] || [];
+  const kgAntes = (atual[d][e][0] || {}).kg || '';
   atual[d][e][s] = atual[d][e][s] || {kg:'', reps:''};
   atual[d][e][s][c] = el.value;
+  /* Repetições anotadas sem carga: vale a carga sugerida em "Próxima vez". */
+  if(c === 'reps' && el.value && !atual[d][e][s].kg){
+    const inpKg = document.querySelector(`.series input[data-d="${d}"][data-e="${e}"][data-s="${s}"][data-c="kg"]`);
+    const sug = inpKg ? num(inpKg.placeholder) : null;
+    if(sug !== null){ atual[d][e][s].kg = String(sug); inpKg.value = String(sug); marcarRecorde(inpKg); }
+  }
+  /* Carga única: o peso da 1ª série se repete nas outras que estavam vazias ou iguais a ela. */
+  if(c === 'kg' && s === '0'){
+    document.querySelectorAll(`.series input[data-d="${d}"][data-e="${e}"][data-c="kg"]`).forEach(inp => {
+      const k = Number(inp.dataset.s); if(k === 0) return;
+      const x = atual[d][e][k] = atual[d][e][k] || {kg:'', reps:''};
+      if(!x.kg || x.kg === kgAntes){ x.kg = el.value; inp.value = el.value; marcarRecorde(inp); }
+    });
+  }
   gravar(K_ATUAL, atual);
   if(c === 'kg') marcarRecorde(el);
 }
@@ -1266,9 +1346,10 @@ function salvarSessao(){
   delete atual[diaAtivo];
   gravar(K_ATUAL, atual);
   render();
-  toast(MEMORIA_OK ? 'Sessão salva — faça o backup' : 'ATENÇÃO: faça o backup agora');
+  window.scrollTo(0,0);
+  const sexta = new Date().getDay() === 5;
+  toast(!MEMORIA_OK ? 'ATENÇÃO: faça o backup agora' : sexta ? 'Sessão salva. Sexta: toque em Backup' : 'Sessão salva');
   if(!MEMORIA_OK) setTimeout(exportarBackup, 900);
-  sincronizarDrive();
 }
 
 function limparDia(){
@@ -1291,10 +1372,10 @@ function verHistorico(){
 function renderHistorico(){
   if(!hist.length){
     document.getElementById('tela').innerHTML =
-      htmlConfigSync() + '<div class="vazio">Nenhuma sessão salva ainda.<br><br>Registre as cargas durante o treino e toque em <b>Salvar sessão</b> ao terminar.</div>';
+      '<div class="vazio">Nenhuma sessão salva ainda.<br><br>Registre as cargas durante o treino e toque em <b>Salvar sessão</b> ao terminar.</div>';
     return;
   }
-  let html = htmlConfigSync() + '<div class="grupo">Sessões registradas</div>';
+  let html = '<div class="grupo">Sessões registradas</div>';
   [...hist].reverse().forEach((s, idx) => {
     const nomes = nomesDaSessao(s);
     let linhas = '';
@@ -1334,16 +1415,17 @@ function renderCorpo(){
   const hoje = isoLocal(new Date());
   const r = corpo.find(x => x.data === hoje) || {};
   const v = k => r[k] ? String(r[k]).replace('.', ',') : '';
-  let html = avisoDeload();
+  let html = avisoDeload() + avisoBackup();
   html += `<div class="cartao"><h3>Registrar hoje — ${ddmm(hoje)}</h3>
     <div class="campos">
       <div><label>Peso em jejum (kg)</label><input id="c-peso" type="text" inputmode="decimal" placeholder="80,1" value="${v('peso')}"></div>
       <div><label>Cintura (cm)</label><input id="c-cintura" type="text" inputmode="decimal" placeholder="94" value="${v('cintura')}"></div>
       <div><label>Pulso ao acordar (bpm)</label><input id="c-pulso" type="text" inputmode="numeric" placeholder="62" value="${v('pulso')}"></div>
-      <div><label>Caminhada (minutos)</label><input id="c-caminhada" type="text" inputmode="numeric" placeholder="35" value="${v('caminhada')}"></div>
+      <div><label>Aeróbico (min)</label><input id="c-caminhada" type="text" inputmode="numeric" placeholder="35" value="${v('caminhada')}"></div>
+      <div class="largo"><label>Pressão (ex.: 12/8)</label><input id="c-pa" type="text" placeholder="12/8 12,5/8" value="${esc(r.pa)}"></div>
     </div>
     <button class="bt" onclick="salvarCorpo()">Salvar medidas de hoje</button>
-    <div style="font-size:12px;color:var(--tinta-clara);margin-top:9px;line-height:1.5">Peso: 3 vezes por semana, ao acordar, após urinar, antes de comer. Cintura: a cada 2 semanas, na altura do umbigo, sem encolher a barriga. Pulso: ao acordar, deitado, 1 minuto. Preencha só o que mediu.</div>
+    <div style="font-size:12px;color:var(--tinta-clara);margin-top:9px;line-height:1.5">Peso: nas manhãs dos dias de treino, ao acordar, após urinar, antes de comer. Cintura: a cada 2 semanas, na altura do umbigo, sem encolher a barriga. Pulso: às segundas, ao acordar, deitado, 1 minuto. Pressão: sentado, depois de 5 minutos de repouso; mais de uma leitura no dia, separe com espaço (12/8 12,5/8). Aeróbico: caminhada, esteira ou bicicleta. Preencha só o que mediu.</div>
   </div>`;
 
   html += '<div class="grupo">Sinais de alerta</div>';
@@ -1352,7 +1434,7 @@ function renderCorpo(){
   const sem = semanasCorpo().slice(-8).reverse();
   html += '<div class="grupo">Semana a semana</div>';
   if(sem.length){
-    html += '<div class="cartao" style="padding:6px 10px"><table class="tab"><tr><th>Semana de</th><th>Peso médio</th><th>Variação</th><th>Cintura</th><th>Pulso</th><th>Caminhada</th></tr>';
+    html += '<div class="cartao" style="padding:6px 10px"><table class="tab"><tr><th>Semana de</th><th>Peso médio</th><th>Variação</th><th>Cintura</th><th>Pulso</th><th>Aeróbico</th></tr>';
     sem.forEach((s, i) => {
       const prox = sem.slice(i+1).find(x => x.peso.length);
       const pm = media(s.peso), dv = (pm !== null && prox) ? pm - media(prox.peso) : null;
@@ -1360,7 +1442,7 @@ function renderCorpo(){
       html += `<tr><td>${ddmm(s.ini)}</td><td>${fmt(pm)}</td><td class="${cls}">${dv === null ? '—' : (dv > 0 ? '+' : '') + fmt(dv)}</td>
         <td>${fmtCm(s.cintura.length ? s.cintura[s.cintura.length-1] : null)}</td><td>${fmt(media(s.pulso), 0)}</td><td>${s.caminhada ? s.caminhada + ' min' : '—'}</td></tr>`;
     });
-    html += '</table><div style="font-size:12px;color:var(--tinta-clara);padding:8px 0 4px">Variação em vermelho: queda acima de 0,5 kg na semana. Meta de caminhada: 60–80 minutos por semana (quarta e sábado).</div></div>';
+    html += '</table><div style="font-size:12px;color:var(--tinta-clara);padding:8px 0 4px">Variação em vermelho: queda acima de 0,5 kg na semana. Meta de caminhada e aeróbico: rumo a 150 minutos por semana.</div></div>';
   }
 
   const cint = [...corpo].filter(x => num(x.cintura) !== null).sort((a,b) => a.data < b.data ? -1 : 1).pop();
@@ -1382,70 +1464,27 @@ function renderCorpo(){
 function salvarCorpo(){
   const hoje = isoLocal(new Date());
   const pega = id => document.getElementById(id).value.trim().replace(',', '.');
-  const novo = {data: hoje, peso: pega('c-peso'), cintura: pega('c-cintura'), pulso: pega('c-pulso'), caminhada: pega('c-caminhada')};
-  if(!novo.peso && !novo.cintura && !novo.pulso && !novo.caminhada) return toast('Preencha ao menos um campo');
+  const novo = {data: hoje, peso: pega('c-peso'), cintura: pega('c-cintura'), pulso: pega('c-pulso'), caminhada: pega('c-caminhada'), pa: document.getElementById('c-pa').value.trim()};
+  if(!novo.peso && !novo.cintura && !novo.pulso && !novo.caminhada && !novo.pa) return toast('Preencha ao menos um campo');
+  if(novo.pa){
+    const ls = leiturasPA(novo.pa);
+    if(!ls.length || ls.some(([a,b]) => a < 70 || a > 250 || b < 40 || b > 150)) return toast('Confira a pressão: use 12/8 ou 120/80');
+  }
   const ruim = [['peso',40,200],['cintura',50,180],['pulso',30,150],['caminhada',1,600]].find(([k,a,b]) => novo[k] && (num(novo[k]) === null || num(novo[k]) < a || num(novo[k]) > b));
   if(ruim) return toast('Confira o valor de ' + ruim[0]);
   const i = corpo.findIndex(x => x.data === hoje);
   if(i >= 0) corpo[i] = novo; else corpo.push(novo);
   corpo.sort((a,b) => a.data < b.data ? -1 : 1);
   gravar(K_CORPO, corpo);
-  render(); toast('Medidas salvas — faça o backup');
+  render(); toast('Medidas salvas');
 }
 
 async function exportarCorpo(){
-  const l = ['Data;Peso (kg);Cintura (cm);Pulso (bpm);Caminhada (min)'];
-  corpo.forEach(r => l.push([ddmm(r.data) + '/' + r.data.slice(0,4), r.peso, r.cintura, r.pulso, r.caminhada].map(x => String(x || '').replace('.', ',')).join(';')));
+  const l = ['Data;Peso (kg);Cintura (cm);Pulso (bpm);Caminhada e aeróbico (min);Pressão (mmHg)'];
+  corpo.forEach(r => l.push([ddmm(r.data) + '/' + r.data.slice(0,4), r.peso, r.cintura, r.pulso, r.caminhada].map(x => String(x || '').replace('.', ',')).concat([leiturasPA(r.pa).map(([a,b]) => a + '/' + b).join(' ')]).join(';')));
   const txt = '﻿' + l.join('\r\n');
   const n = nomeArquivo('csv').replace('treino-', 'medidas-');
   if(await baixar(txt, n, 'text/csv')) toast('Escolha onde salvar'); else abrirCopia(l.join('\n'));
-}
-
-/* ================= SINCRONIZAÇÃO COM O GOOGLE DRIVE ================= */
-const K_URL_SYNC = 'lib_treino_url_sync';
-const URL_PADRAO = '';
-let urlSync = (function(){ try{ return localStorage.getItem(K_URL_SYNC) || URL_PADRAO; }catch(e){ return URL_PADRAO; } })();
-let formSyncAberto = false;
-
-function htmlConfigSync(){
-  if(!formSyncAberto && urlSync){
-    return `<div class="sync">Sincronização com o Drive: <b>ativa</b> ·
-      <a href="#" onclick="formSyncAberto=true;renderHistorico();return false">alterar endereço</a></div>`;
-  }
-  return `<div class="sync">
-      <div style="font-weight:600;margin-bottom:6px">Sincronização com o Drive</div><div style="margin-bottom:8px">Cole aqui, uma única vez, o endereço do seu Apps Script (começa com https://script.google.com/macros/...).</div>
-      <input id="url-sync" type="text" value="${urlSync}">
-      <button onclick="salvarUrlSync()">Salvar endereço</button></div>`;
-}
-function salvarUrlSync(){
-  const v = document.getElementById('url-sync').value.trim();
-  if(!v) return toast('Cole o endereço antes de salvar');
-  urlSync = v;
-  try{ localStorage.setItem(K_URL_SYNC, v); }catch(e){}
-  formSyncAberto = false; renderHistorico();
-  toast('Endereço salvo');
-}
-async function sincronizarDrive(){
-  if(!urlSync) return;
-  if(!navigator.onLine){ selo('Salvo no celular · Drive: sem sinal, envia na próxima vez', ''); return; }
-  const linhas = [];
-  hist.forEach(s => {
-    const nomes = nomesDaSessao(s);
-    Object.keys(s.dados || {}).forEach(ei => (s.dados[ei] || []).forEach((x, i) => {
-      if(!x || (!x.kg && !x.reps)) return;
-      linhas.push([dataCurta(s.data), s.dia, s.titulo, nomes[ei] || 'Exercicio ' + (+ei+1), (i+1)+'a', x.kg || '', x.reps || '']);
-    }));
-  });
-  try{
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 8000);
-    await fetch(urlSync, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({linhas}), signal: ctrl.signal });
-    clearTimeout(t);
-    selo('Salvo às ' + horaAgora() + ' · enviado ao Drive', 'ok');
-  } catch(e){
-    selo('Salvo no celular · Drive não respondeu — use o Backup', '');
-  }
 }
 
 /* ================= AVISO ================= */
@@ -1474,7 +1513,7 @@ async function baixar(texto, nome, tipo){
       await navigator.share({files:[f], title:nome});
       return true;
     }
-  } catch(e){ if(e && e.name === 'AbortError') return true; }
+  } catch(e){ if(e && e.name === 'AbortError') return 'cancelado'; }
   try{
     const blob = new Blob([texto], {type: tipo + ';charset=utf-8'});
     const url = URL.createObjectURL(blob);
@@ -1489,16 +1528,24 @@ async function baixar(texto, nome, tipo){
 async function exportarBackup(){
   const pacote = {
     aplicativo: 'Treino Liberato',
-    versao: 7,
+    versao: 7.1,
     gerado_em: new Date().toISOString(),
     em_andamento: atual,
     historico: hist,
     corpo: corpo,
-    ciclo: ciclo
+    ciclo: ciclo,
+    ajustes: ajustes,
+    playlists: playlists
   };
   const txt = JSON.stringify(pacote, null, 2);
-  if(await baixar(txt, nomeArquivo('json'), 'application/json')){
-    toast('Escolha onde salvar o backup');
+  const r = await baixar(txt, nomeArquivo('json'), 'application/json');
+  if(r === true){
+    ultimoBackup = isoLocal(new Date());
+    try{ localStorage.setItem(K_BACKUP, ultimoBackup); }catch(e){}
+    render();
+  }
+  if(r){
+    toast(r === true ? 'Escolha o Drive e toque em Salvar' : 'Backup cancelado');
   } else {
     abrirCopia(txt);
   }
@@ -1557,6 +1604,8 @@ function importarArquivo(input){
       if(!(p.versao >= 6)) migrarTudo();
       if(Array.isArray(p.corpo)){ corpo = p.corpo; gravar(K_CORPO, corpo); }
       if(p.ciclo){ ciclo = p.ciclo; try{ localStorage.setItem(K_CICLO, ciclo); }catch(e){} }
+      if(p.ajustes && typeof p.ajustes === 'object'){ ajustes = p.ajustes; gravar(K_AJUSTE, ajustes); }
+      if(p.playlists && typeof p.playlists === 'object'){ playlists = p.playlists; gravar(K_PLAYLIST, playlists); }
       gravar(K_HIST, hist);
       gravar(K_ATUAL, atual);
       modoHistorico = false;
@@ -1568,6 +1617,206 @@ function importarArquivo(input){
   };
   leitor.readAsText(f);
   input.value = '';
+}
+
+/* ================= v7.1: PRESSÃO, PRÓXIMA VEZ, AVISOS ================= */
+
+/* Leituras de pressão: aceita 12/8, 12,5/8 ou 120/80; várias leituras separadas por espaço. */
+function leiturasPA(t){
+  const out = [], re = /(\d+(?:[.,]\d+)?)\s*[\/x×]\s*(\d+(?:[.,]\d+)?)/g;
+  let m;
+  while((m = re.exec(String(t || '')))){
+    let a = num(m[1]), b = num(m[2]);
+    if(a < 30) a *= 10;
+    if(b < 20) b *= 10;
+    out.push([Math.round(a), Math.round(b)]);
+  }
+  return out;
+}
+
+function fmtKg(v){ return String(Math.round(v * 10) / 10).replace('.', ','); }
+
+/* Faixa de repetições do cartão ("3 × 10–12" → 10 a 12). Exercícios em segundos ou em duas máquinas ficam de fora. */
+function faixa(meta){
+  if(/cada|\ds\b|\bs\b/.test(meta)) return null;
+  const m = String(meta).match(/×\s*(\d+)(?:\s*[–-]\s*(\d+))?/);
+  if(!m) return null;
+  return {min: Number(m[1]), max: Number(m[2] || m[1])};
+}
+
+/* Dupla progressão: decide a carga da próxima sessão a partir da última vez. */
+function proximaVez(ex){
+  const f = faixa(ex.meta), uv = ultimaVez(ex.n);
+  if(!f || !uv) return null;
+  const sets = (uv.sets || []).filter(x => x && num(x.kg) !== null && num(x.reps) !== null);
+  if(!sets.length) return null;
+  const kgs = sets.map(x => num(x.kg)), reps = sets.map(x => num(x.reps));
+  const meta = '<span style="white-space:nowrap">' + (f.min === f.max ? String(f.max) : f.min + '–' + f.max) + '</span>';
+  if(kgs.every(k => k === kgs[0])){
+    const kg = kgs[0];
+    if(Math.min(...reps) >= f.max) return {kg: null, txt: `Próxima vez: suba para o próximo peso da máquina. Com ${fmtKg(kg)} kg você chegou ao topo da faixa.`};
+    if(Math.max(...reps) < f.min) return {kg: null, txt: `Próxima vez: volte ao peso anterior da máquina. Com ${fmtKg(kg)} kg as repetições ficaram abaixo de ${f.min}.`};
+    return {kg, txt: `Próxima vez: mantenha ${fmtKg(kg)} kg e busque uma repetição a mais (meta ${meta}).`};
+  }
+  const boas = sets.filter(x => num(x.reps) >= f.min).map(x => num(x.kg));
+  const kg = boas.length ? Math.max(...boas) : Math.min(...kgs);
+  return {kg, txt: `Próxima vez: ${fmtKg(kg)} kg em todas as séries (meta ${meta}). Da última vez a carga mudou entre as séries.`};
+}
+
+/* Superior seguido de superior (ou inferior de inferior) em menos de 48 horas. */
+const GRUPO = {S1: 'sup', S2: 'sup', I1: 'inf', I2: 'inf'};
+function aviso48h(d){
+  const g = GRUPO[d]; if(!g) return '';
+  const hoje = isoLocal(new Date());
+  for(let k = hist.length - 1; k >= 0; k--){
+    const s = hist[k];
+    if(GRUPO[s.dia] !== g) continue;
+    const h = (Date.now() - new Date(s.data).getTime()) / 3600000;
+    if(h >= 48 || h < 0 || isoLocal(new Date(s.data)) === hoje) return '';
+    const outro = g === 'sup' ? 'um treino Inferior (Inf 1 ou Inf 2)' : 'um treino Superior (Sup 1 ou Sup 2)';
+    return `<div class="sinal amb"><b>${esc(s.titulo)} foi feito há ${Math.round(h)} horas</b>Os mesmos músculos precisam de 48 horas para se recuperar. Hoje, prefira ${outro}.</div>`;
+  }
+  return '';
+}
+
+/* Lembrete de backup: toda sexta, ou quando o último passou de 8 dias. */
+function avisoBackup(){
+  if(!hist.length) return '';
+  const hoje = isoLocal(new Date());
+  if(ultimoBackup === hoje) return '';
+  const como = 'Toque em <b style="display:inline">Backup (Drive)</b>, escolha o Drive e toque em Salvar.';
+  if(new Date().getDay() === 5) return `<div class="sinal amb"><b>Hoje é sexta: dia de backup</b>Depois de salvar a sessão: ${como}</div>`;
+  const dias = ultimoBackup ? Math.round((dataDe(hoje) - dataDe(ultimoBackup)) / DIA_MS) : null;
+  if(dias === null) return `<div class="sinal amb"><b>Nenhum backup feito ainda</b>O histórico está só neste celular. ${como}</div>`;
+  if(dias > 8) return `<div class="sinal amb"><b>Último backup há ${dias} dias</b>${como}</div>`;
+  return '';
+}
+
+/* Playlist do YouTube de cada treino. */
+function htmlPlaylist(d){
+  const u = playlists[d];
+  if(u && !editandoPlaylist){
+    return `<a class="ex-video" style="margin:0" href="${esc(u)}" target="_blank" rel="noopener">▶ Playlist do dia no YouTube</a>
+      <a class="pl-troca" href="#" onclick="editandoPlaylist=true;render();return false">trocar o link da playlist</a>`;
+  }
+  if(!u && !editandoPlaylist){
+    return `<a class="pl-link" href="#" onclick="editandoPlaylist=true;render();return false">+ Adicionar a playlist do dia (YouTube)</a>`;
+  }
+  return `<div class="sync">
+    <div style="font-weight:600;margin-bottom:6px">Playlist do dia</div>
+    <div style="margin-bottom:8px">No YouTube, abra a playlist deste treino, toque em Compartilhar e depois em Copiar link. Volte aqui, segure o dedo no campo e toque em Colar.</div>
+    <input id="pl-url" type="text" inputmode="url" placeholder="https://youtube.com/playlist?list=..." value="${esc(u)}">
+    <button onclick="salvarPlaylist('${d}')">Salvar link da playlist</button>
+    <div style="text-align:center;margin-top:8px"><a href="#" onclick="editandoPlaylist=false;render();return false">cancelar</a></div>
+  </div>`;
+}
+function salvarPlaylist(d){
+  const v = document.getElementById('pl-url').value.trim();
+  if(v && !/^https?:\/\/[^\s]*youtu/i.test(v)) return toast('Cole um link do YouTube');
+  if(v) playlists[d] = v; else delete playlists[d];
+  gravar(K_PLAYLIST, playlists);
+  editandoPlaylist = false;
+  render();
+  toast(v ? 'Playlist guardada' : 'Playlist removida');
+}
+
+/* Ajuste da máquina anotado pelo usuário (vale para o mesmo exercício em qualquer dia). */
+function salvarAjuste(el){
+  const n = decodeURIComponent(el.dataset.n), v = el.value.trim();
+  if(v) ajustes[n] = v; else delete ajustes[n];
+  gravar(K_AJUSTE, ajustes);
+  toast(v ? 'Ajuste guardado' : 'Ajuste apagado');
+}
+
+/* Botões menos usados ficam escondidos em "Mais". */
+function alternarMais(){
+  const b = document.getElementById('barra');
+  const on = b.classList.toggle('aberta');
+  document.body.classList.toggle('mais-aberto', on);
+  document.getElementById('b-mais').textContent = on ? 'Menos ▴' : 'Mais ▾';
+}
+
+/* ================= ABA GUIA ================= */
+function renderGuia(){
+  document.getElementById('tela').innerHTML = avisoDeload() + `<div class="guia">
+  <div class="cartao"><h3>Em toda sessão</h3><ol>
+    <li><b>Regule a máquina</b> antes de começar: veja a linha "Antes da 1ª série" e o seu ajuste anotado no cartão.</li>
+    <li><b>Aqueça</b> com ⅓ da carga × 15 e ⅔ × 8. O aquecimento não se anota.</li>
+    <li><b>Faça as séries com a mesma carga</b>, parando com 1 a 2 repetições de sobra. Digite o peso na 1ª série: ele se repete nas outras.</li>
+    <li><b>No intervalo</b>, anote as repetições. Sem tempo? Anote ao menos a última série: é ela que decide quando subir.</li>
+    <li><b>Respire:</b> solte o ar no esforço, como quem apaga uma vela. Nunca prenda.</li>
+    <li>Ao terminar, toque em <b>Salvar sessão</b>.</li>
+  </ol>
+  <div class="regra"><b>Quando subir a carga:</b> só quando a última série chegar ao topo da faixa (por exemplo, 12 repetições em 3 × 10–12). A linha verde "Próxima vez" faz essa conta por você.</div></div>
+
+  <div class="cartao"><h3>Em toda semana</h3><ul>
+    <li><b>Segunda, terça, quinta e sexta:</b> musculação, um treino por dia, na ordem das abas.</li>
+    <li><b>Treinou fora do dia?</b> Nunca dois treinos Superiores, ou dois Inferiores, em menos de 48 horas. O app avisa.</li>
+    <li><b>Peso em jejum</b> nas manhãs de treino e <b>pulso ao acordar</b> às segundas, na aba Corpo.</li>
+    <li><b>Sexta, depois do treino:</b> Backup (Drive).</li>
+    <li><b>Cintura</b> a cada 2 semanas, com ajuda, na linha do umbigo.</li>
+    <li><b>Core em casa</b> 2 a 3 vezes por semana, nos dias sem musculação.</li>
+  </ul></div>
+
+  <div class="cartao"><h3>Dias leves: quarta e sábado</h3><ol>
+    <li><b>Aeróbico:</b> 30 a 40 minutos de esteira inclinada ou bicicleta, num ritmo em que dá para conversar, mas não para cantar.</li>
+    <li><b>Pendurar na barra:</b> 3 vezes, como explicado abaixo.</li>
+    <li><b>Mobilidade:</b> 10 minutos, os cinco alongamentos abaixo.</li>
+    <li><b>Equilíbrio:</b> um pé só, 2 × 30 segundos cada perna, com a mão perto de um apoio.</li>
+  </ol>
+  <div class="regra"><b>Regra:</b> nada de musculação e nada que deixe dolorido no dia seguinte. Anote os minutos em "Aeróbico", na aba Corpo. Domingo é livre, ou uma caminhada ao ar livre.</div>
+
+  <details class="tec"><summary>Pendurar na barra, passo a passo</summary><div class="tec-in"><ul>
+    <li><b>Onde:</b> na academia, numa barra fixa, com um banco ou degrau embaixo dos pés. Em casa, barra de porta não: o risco de queda não compensa.</li>
+    <li><b>Como:</b> braços esticados, mas ombros levemente puxados para baixo, como quem carrega uma sacola pesada sem deixar o ombro subir até a orelha.</li>
+    <li><b>Começo:</b> pés apoiados, tirando só parte do peso do corpo, 3 × 15–20 segundos.</li>
+    <li><b>Progressão:</b> a cada semana, um pouco mais de peso nas mãos e um pouco mais de tempo. Um minuto é a meta para daqui a alguns meses.</li>
+    <li><b>Cuidado:</b> respire o tempo todo. Pare se doer o ombro ou formigar a mão.</li>
+  </ul></div></details>
+
+  <details class="tec"><summary>Mobilidade, passo a passo</summary><div class="tec-in">
+    <p style="font-size:14px;margin:0 0 10px">Segure 30 segundos, 2 vezes de cada lado. Tensão de 3 ou 4 numa escala de 10, nunca dor. Sem balanço, como quem estica uma massa de pão devagar. Respire normalmente.</p>
+    <ol>
+    <li><b>Círculos de ombro:</b> em pé, braços soltos, gire os ombros para trás em círculos grandes, 10 vezes; depois 10 para a frente. <i>Imagine desenhar uma roda com a ponta de cada ombro.</i></li>
+    <li><b>Rotação do tronco:</b> sentado num banco, pés no chão, braços cruzados no peito. Gire o tronco para um lado olhando por cima do ombro, segure 2 segundos e volte; 8 de cada lado. <i>Imagine a torre de um tanque: a base (quadril e joelhos) fica parada e só a torre gira.</i></li>
+    <li><b>Peito na coluna:</b> antebraço apoiado numa coluna ou batente, cotovelo um pouco abaixo da altura do ombro. Dê um pequeno passo à frente até sentir o peito esticar. <i>Imagine estufar o peito para uma foto.</i></li>
+    <li><b>Panturrilha na parede:</b> mãos na parede, uma perna atrás, esticada, calcanhar no chão. Incline o corpo até esticar a batata da perna. Depois dobre levemente o joelho de trás, para a parte mais baixa. <i>Imagine empurrar um carro que morreu na rua.</i></li>
+    <li><b>Frente do quadril:</b> em pé, segurando um apoio, um pé à frente e outro atrás. Encaixe a bacia, aperte o bumbum e leve o quadril um pouco à frente: a frente da coxa de trás estica. <i>Imagine esconder o rabo entre as pernas.</i> É o alongamento mais útil para quem passa o dia sentado.</li>
+    </ol></div></details>
+  </div>
+
+  <div class="cartao"><h3>Core em casa</h3>
+    <p style="font-size:14px;margin:0 0 10px">10 minutos, 2 a 3 vezes por semana, nos dias sem musculação, num colchonete e pelo menos 1h30 depois das refeições. São os "três grandes" do pesquisador de coluna Stuart McGill: fortalecem o abdômen sem dobrar a coluna.</p>
+    <details class="tec"><summary>Os três exercícios, passo a passo</summary><div class="tec-in"><ol>
+    <li><b>Perdigueiro:</b> de quatro apoios, mãos embaixo dos ombros e joelhos embaixo do quadril. Estique um braço à frente e a perna oposta para trás, até a linha do corpo; segure 5 segundos e troque. 2 × 6 de cada lado. <i>Imagine um copo d'água nas costas que não pode virar.</i></li>
+    <li><b>Prancha lateral com joelhos dobrados:</b> deitado de lado, cotovelo embaixo do ombro, joelhos dobrados. Levante o quadril até o corpo ficar reto dos joelhos à cabeça. 3 × 15–20 segundos de cada lado. <i>Imagine uma ponte que não pode ceder no meio.</i></li>
+    <li><b>Abdominal parcial:</b> deitado de costas, uma perna dobrada e a outra esticada, mãos embaixo da lombar. Tire só a cabeça e os ombros alguns centímetros do chão, segure 8 segundos e desça. 2 × 6. <i>Cabeça e ombros sobem juntos, como um bloco só, sem dobrar o pescoço.</i></li>
+    </ol>
+    <p style="font-size:13px;margin:10px 0 0;color:var(--tinta-clara)">Joelhos incomodam no chão? Use uma almofada. Para levantar, vire de lado e apoie as mãos, sem pressa.</p></div></details>
+  </div>
+
+  <div class="cartao"><h3>Alimentação</h3><ul>
+    <li>Cerca de 2.000 kcal e 140 g de proteína por dia, em 4 refeições de 30 a 40 g de proteína.</li>
+    <li>Marmita preparada no domingo e na quarta.</li>
+    <li>Jantar 2 a 3 horas antes de deitar.</li>
+    <li>Cerca de 2,5 litros de água por dia, quase toda até as 18h.</li>
+    <li>Cardápio, trocas e receitas: no plano alimentar do projeto.</li>
+  </ul></div>
+
+  <div class="cartao"><h3>Datas de novembro de 2026</h3><ul>
+    <li><b>Até 20/11:</b> consulta e exames. Nos 7 dias antes, pressão duas vezes de manhã e duas à noite, anotada na aba Corpo.</li>
+    <li><b>Na consulta:</b> lista de todos os remédios e doses, as medidas de pressão e o painel de exames.</li>
+    <li><b>23 a 29/11:</b> deload, com os mesmos exercícios, metade das séries e carga 10% menor. Depois, toque em "Fiz o deload" na aba Corpo.</li>
+    <li><b>30/11:</b> começa o programa novo, se aprovado.</li>
+  </ul></div>
+
+  <div class="cartao"><h3>Quando avisar no chat</h3><ul>
+    <li>Cargas caindo por 2 semanas seguidas.</li>
+    <li>Pulso ao acordar 5 ou mais batimentos acima da sua média.</li>
+    <li>Dor em articulação que dura mais de 2 dias, ou dor no ombro à noite.</li>
+    <li>Pressão repetida em 14/9 ou mais: procure o médico sem esperar a consulta.</li>
+  </ul></div>
+</div>`;
 }
 
 /* ================= FUNCIONAMENTO SEM SINAL ================= */

@@ -1,7 +1,7 @@
 {
   "name": "Treino — Liberato",
   "short_name": "Treino",
-  "description": "Programa ABCD, cartões de técnica e registro de cargas",
+  "description": "Programa Superior/Inferior, roteiro, cartões de técnica e registro de cargas",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
