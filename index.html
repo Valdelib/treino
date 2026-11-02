@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Treino">
 <meta name="theme-color" content="#1B2A3A">
-<title>Treino — Liberato (v7.1)</title>
+<title>Treino — Liberato (v7.2)</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icone-192.png">
 <link rel="apple-touch-icon" href="icone-192.png">
@@ -267,7 +267,7 @@ body.mais-aberto{padding-bottom:150px}
 <body>
 
 <header>
-  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v7.1</span></h1>
+  <h1>Treino — Liberato <span style="font-size:12px;color:#9FB0BE;font-weight:400">v7.2</span></h1>
   <div class="sub" id="hoje"></div>
 </header>
 
@@ -524,20 +524,34 @@ const PROGRAMA = {
     "grupo": "Quadril e panturrilha",
     "exs": [
      {
-      "n": "Adutora e abdutora",
-      "alvo": "Adutores · glúteo médio",
+      "n": "Cadeira adutora",
+      "alvo": "Adutores (parte interna da coxa)",
       "series": 2,
-      "meta": "2 × 15 cada",
+      "meta": "2 × 12–15",
       "pausa": "60 s",
       "pri": [
-       "adut",
+       "adut"
+      ],
+      "sec": [],
+      "dica": "Costas apoiadas. Feche as pernas sem tranco, segure 1 s e volte devagar, sem deixar as placas baterem.",
+      "erro": "Abrir além do confortável na volta: força a virilha.",
+      "alt": "Adução na polia baixa, com tornozeleira e apoio nas mãos (carga leve)",
+      "v": "cadeira adutora execução correta"
+     },
+     {
+      "n": "Cadeira abdutora",
+      "alvo": "Glúteo médio (lateral do quadril)",
+      "series": 2,
+      "meta": "2 × 12–15",
+      "pausa": "60 s",
+      "pri": [
        "glut_med"
       ],
       "sec": [],
-      "dica": "Uma máquina em seguida da outra. Glúteo médio sustenta o equilíbrio do quadril.",
-      "erro": "Movimento rápido, batendo as placas.",
-      "alt": "Abdução e adução na polia baixa, com tornozeleira",
-      "v": "cadeira adutora abdutora execução correta"
+      "dica": "Costas apoiadas e quadril colado no banco. Abra as pernas pelos joelhos, segure 1 s e volte devagar. O glúteo médio sustenta o equilíbrio do quadril.",
+      "erro": "Inclinar o tronco ou balançar para ganhar impulso.",
+      "alt": "Abdução na polia baixa, com tornozeleira e apoio nas mãos (carga leve)",
+      "v": "cadeira abdutora execução correta"
      },
      {
       "n": "Panturrilha no leg press",
@@ -920,7 +934,7 @@ const LEGADO = {"A": {"titulo": "Peito + Tríceps", "nomes": ["Supino máquina a
 
 
 /* v7.1: analogia ("Imagine") e regulagem da máquina ("Antes da 1ª série") por exercício, pelo nome. */
-const EXTRA = {"Supino máquina articulado": {"im": "Empurre como quem afasta alguém com firmeza, as duas mãos no peito da pessoa: ninguém faz isso com o cotovelo levantado.", "reg": "Banco com os pegadores na linha do meio do peito. Pegada vertical, se houver. Costas inteiras no encosto, escápulas juntas e para baixo."}, "Puxada frontal na polia alta": {"im": "As mãos são ganchos; quem puxa são os cotovelos, descendo em direção aos bolsos da calça.", "reg": "Trava das coxas firme, sem folga. Pés no chão. Pegada um pouco mais aberta que os ombros."}, "Supino inclinado (máquina ou Smith)": {"im": "Empurre como quem coloca uma caixa pesada numa prateleira alta à sua frente: cotovelos baixos, ombros longe das orelhas.", "reg": "Encosto entre 30° e 45°. Banco com os pegadores na altura do alto do peito. Costas e cabeça no encosto."}, "Remada sentada na polia baixa": {"im": "Puxe como quem abre uma gaveta funda e pesada: tronco parado, cotovelos passando rente ao corpo.", "reg": "Pés apoiados, joelhos levemente dobrados. Sente a uma distância em que, de braços esticados, a carga ainda não encoste na pilha."}, "Elevação lateral na máquina": {"im": "Empurre as paredes da sala com os cotovelos, até a altura dos ombros.", "reg": "Banco com o ombro alinhado ao eixo de giro da máquina. Apoios encostados no braço, logo acima do cotovelo."}, "Tríceps na polia — barra reta": {"im": "Os cotovelos são dobradiças pregadas nas costelas: só o antebraço abre e fecha, como uma porta.", "reg": "Polia no alto, barra reta. Um passo atrás da máquina, tronco levemente à frente, pés firmes."}, "Rosca direta na polia baixa": {"im": "Suba como quem traz uma bandeja até o peito, sem levantar os cotovelos e sem jogar o corpo para trás.", "reg": "Polia no ponto mais baixo, barra reta. Perto da máquina, joelhos destravados, abdômen firme."}, "Leg press 45°": {"im": "Empurre o chão para longe. Os joelhos correm como trilhos, na direção dos dedos dos pés.", "reg": "Encosto numa inclinação em que lombar e quadril fiquem colados na descida. Pés no meio da plataforma, na largura dos ombros. Solte as travas só depois de esticar as pernas e trave de novo ao terminar."}, "Mesa flexora": {"im": "Volte como quem fecha uma porta pesada sem deixar bater: 3 segundos na descida.", "reg": "Joelho logo além da borda do banco, alinhado ao eixo da máquina. Rolo logo acima do calcanhar."}, "Cadeira extensora": {"im": "Suba como uma ponte levadiça: devagar, segure 1 segundo no alto e desça controlando.", "reg": "Encosto ajustado para o joelho ficar alinhado ao eixo da máquina. Rolo na frente da canela, logo acima do tornozelo."}, "Adutora e abdutora": {"im": "Adutora: feche como quem aperta uma bola de praia entre os joelhos. Abdutora: abra como quem afasta duas portas de vaivém.", "reg": "Comece com uma abertura que não incomode a virilha e aumente aos poucos. Costas no encosto."}, "Panturrilha no leg press": {"im": "Suba como quem fica na ponta dos pés para alcançar a prateleira mais alta, e segure 1 segundo.", "reg": "Só a parte da frente dos pés na borda de baixo da plataforma, calcanhares para fora. Joelhos esticados sem travar. Travas de segurança acionadas, se a máquina permitir."}, "Crucifixo inverso na máquina": {"im": "Abra os braços como quem abre uma cortina pesada pelos dois lados, puxando pelos cotovelos.", "reg": "Peito no apoio. Banco com os pegadores na altura dos ombros. Comece com os braços à frente do peito."}, "Abdominal na máquina": {"im": "Enrole o tronco como quem enrola um tapete, e solte o ar como quem apaga uma vela.", "reg": "Banco com o apoio na altura do peito e os pés presos. Carga leve: o movimento é curto."}, "Desenvolvimento na máquina": {"im": "Empurre como quem põe a mala no bagageiro do ônibus: cotovelos um pouco à frente do corpo, nunca abertos para trás.", "reg": "Banco com os pegadores na altura das orelhas. Costas inteiras no encosto. Pegada vertical, se houver."}, "Puxada com triângulo (pegada neutra)": {"im": "As mãos são só ganchos; quem puxa são os cotovelos, descendo até encostar nas costelas.", "reg": "Triângulo no cabo da polia alta. Trava das coxas firme. Tronco levemente para trás, peito alto."}, "Remada articulada na máquina": {"im": "Dê uma cotovelada em alguém atrás de você e segure um lápis entre as escápulas.", "reg": "Banco com o peito no apoio e os pegadores na altura do meio do peito. Braços quase esticados no início, sem tirar o peito do apoio."}, "Voador (peck deck)": {"im": "Abrace uma árvore grossa: braços curvos, peito aberto.", "reg": "Banco com os cotovelos na altura do peito. Ajuste o início para que os braços fiquem na linha do corpo, não atrás dele."}, "Tríceps corda na polia": {"im": "Embaixo, abra a corda como quem rasga um papel ao meio.", "reg": "Polia no alto, com a corda. Um passo atrás, cotovelos colados ao corpo."}, "Rosca martelo com corda": {"im": "Segure como quem segura dois martelos, polegares para cima, e suba sem mover os cotovelos.", "reg": "Polia no ponto mais baixo, com a corda. Perto da máquina, cotovelos junto ao corpo."}, "Cadeira flexora sentada": {"im": "Dobre os joelhos como quem puxa a terra com os calcanhares; volte devagar, sem deixar a carga despencar.", "reg": "Joelho alinhado ao eixo da máquina. Trava da coxa firme, logo acima do joelho. Rolo logo acima do calcanhar."}, "Panturrilha sentado na máquina": {"im": "Suba como quem fica na ponta dos pés para espiar por cima de um muro, e segure 1 segundo.", "reg": "Apoio sobre as coxas, logo acima dos joelhos. Só a parte da frente dos pés na plataforma, calcanhares soltos."}, "Face pull na polia alta": {"im": "Termine na posição de quem se rende: mãos ao lado das orelhas, cotovelos altos.", "reg": "Polia na altura da testa, com a corda. Um passo atrás, pés firmes, tronco parado."}, "Prancha isométrica": {"im": "Deixe o corpo como uma tábua de passar roupa: reto da cabeça aos calcanhares, sem barriga caída nem quadril alto.", "reg": "Antebraços no chão, cotovelos embaixo dos ombros, pés na largura do quadril. Respire normalmente."}, "Equilíbrio em um pé só": {"im": "Fique como uma garça no rio: um pé firme, o olhar parado num ponto.", "reg": "Ao lado de um apoio fixo, mão a 2 cm dele, sem tocar."}};
+const EXTRA = {"Supino máquina articulado": {"im": "Empurre como quem afasta alguém com firmeza, as duas mãos no peito da pessoa: ninguém faz isso com o cotovelo levantado.", "reg": "Banco com os pegadores na linha do meio do peito. Pegada vertical, se houver. Costas inteiras no encosto, escápulas juntas e para baixo."}, "Puxada frontal na polia alta": {"im": "As mãos são ganchos; quem puxa são os cotovelos, descendo em direção aos bolsos da calça.", "reg": "Trava das coxas firme, sem folga. Pés no chão. Pegada um pouco mais aberta que os ombros."}, "Supino inclinado (máquina ou Smith)": {"im": "Empurre como quem coloca uma caixa pesada numa prateleira alta à sua frente: cotovelos baixos, ombros longe das orelhas.", "reg": "Encosto entre 30° e 45°. Banco com os pegadores na altura do alto do peito. Costas e cabeça no encosto."}, "Remada sentada na polia baixa": {"im": "Puxe como quem abre uma gaveta funda e pesada: tronco parado, cotovelos passando rente ao corpo.", "reg": "Pés apoiados, joelhos levemente dobrados. Sente a uma distância em que, de braços esticados, a carga ainda não encoste na pilha."}, "Elevação lateral na máquina": {"im": "Empurre as paredes da sala com os cotovelos, até a altura dos ombros.", "reg": "Banco com o ombro alinhado ao eixo de giro da máquina. Apoios encostados no braço, logo acima do cotovelo."}, "Tríceps na polia — barra reta": {"im": "Os cotovelos são dobradiças pregadas nas costelas: só o antebraço abre e fecha, como uma porta.", "reg": "Polia no alto, barra reta. Um passo atrás da máquina, tronco levemente à frente, pés firmes."}, "Rosca direta na polia baixa": {"im": "Suba como quem traz uma bandeja até o peito, sem levantar os cotovelos e sem jogar o corpo para trás.", "reg": "Polia no ponto mais baixo, barra reta. Perto da máquina, joelhos destravados, abdômen firme."}, "Leg press 45°": {"im": "Imagine que você está se levantando de uma cadeira baixa, só que deitado: o pé inteiro empurra, com o peso nos calcanhares, e os joelhos correm como trilhos, na direção dos dedos dos pés.", "reg": "Encosto numa inclinação em que lombar e quadril fiquem colados na descida. Pés no meio da plataforma, na largura dos ombros. Solte as travas só depois de esticar as pernas e trave de novo ao terminar."}, "Mesa flexora": {"im": "Volte como quem fecha uma porta pesada sem deixar bater: 3 segundos na descida.", "reg": "Joelho logo além da borda do banco, alinhado ao eixo da máquina. Rolo logo acima do calcanhar."}, "Cadeira extensora": {"im": "Suba como uma ponte levadiça: devagar, segure 1 segundo no alto e desça controlando.", "reg": "Encosto ajustado para o joelho ficar alinhado ao eixo da máquina. Rolo na frente da canela, logo acima do tornozelo."}, "Panturrilha no leg press": {"im": "Suba como quem fica na ponta dos pés para alcançar a prateleira mais alta, e segure 1 segundo.", "reg": "Só a parte da frente dos pés na borda de baixo da plataforma, calcanhares para fora. Joelhos esticados sem travar. Travas de segurança acionadas, se a máquina permitir."}, "Crucifixo inverso na máquina": {"im": "Abra os braços como quem abre uma cortina pesada pelos dois lados, puxando pelos cotovelos.", "reg": "Peito no apoio. Banco com os pegadores na altura dos ombros. Comece com os braços à frente do peito."}, "Abdominal na máquina": {"im": "Enrole o tronco como quem enrola um tapete, e solte o ar como quem apaga uma vela.", "reg": "Banco com o apoio na altura do peito e os pés presos. Carga leve: o movimento é curto."}, "Desenvolvimento na máquina": {"im": "Empurre como quem põe a mala no bagageiro do ônibus: cotovelos um pouco à frente do corpo, nunca abertos para trás.", "reg": "Banco com os pegadores na altura das orelhas. Costas inteiras no encosto. Pegada vertical, se houver."}, "Puxada com triângulo (pegada neutra)": {"im": "As mãos são só ganchos; quem puxa são os cotovelos, descendo até encostar nas costelas.", "reg": "Triângulo no cabo da polia alta. Trava das coxas firme. Tronco levemente para trás, peito alto."}, "Remada articulada na máquina": {"im": "Dê uma cotovelada em alguém atrás de você e segure um lápis entre as escápulas.", "reg": "Banco com o peito no apoio e os pegadores na altura do meio do peito. Braços quase esticados no início, sem tirar o peito do apoio."}, "Voador (peck deck)": {"im": "Abrace uma árvore grossa: braços curvos, peito aberto.", "reg": "Banco com os cotovelos na altura do peito. Ajuste o início para que os braços fiquem na linha do corpo, não atrás dele."}, "Tríceps corda na polia": {"im": "Embaixo, abra a corda como quem rasga um papel ao meio.", "reg": "Polia no alto, com a corda. Um passo atrás, cotovelos colados ao corpo."}, "Rosca martelo com corda": {"im": "Segure como quem segura dois martelos, polegares para cima, e suba sem mover os cotovelos.", "reg": "Polia no ponto mais baixo, com a corda. Perto da máquina, cotovelos junto ao corpo."}, "Cadeira flexora sentada": {"im": "Dobre os joelhos como quem puxa a terra com os calcanhares; volte devagar, sem deixar a carga despencar.", "reg": "Joelho alinhado ao eixo da máquina. Trava da coxa firme, logo acima do joelho. Rolo logo acima do calcanhar."}, "Panturrilha sentado na máquina": {"im": "Suba como quem fica na ponta dos pés para espiar por cima de um muro, e segure 1 segundo.", "reg": "Apoio sobre as coxas, logo acima dos joelhos. Só a parte da frente dos pés na plataforma, calcanhares soltos."}, "Face pull na polia alta": {"im": "Termine na posição de quem se rende: mãos ao lado das orelhas, cotovelos altos.", "reg": "Polia na altura da testa, com a corda. Um passo atrás, pés firmes, tronco parado."}, "Prancha isométrica": {"im": "Deixe o corpo como uma tábua de passar roupa: reto da cabeça aos calcanhares, sem barriga caída nem quadril alto.", "reg": "Antebraços no chão, cotovelos embaixo dos ombros, pés na largura do quadril. Respire normalmente."}, "Equilíbrio em um pé só": {"im": "Fique como uma garça no rio: um pé firme, o olhar parado num ponto.", "reg": "Ao lado de um apoio fixo, mão a 2 cm dele, sem tocar."}, "Cadeira adutora": {"im": "Feche como quem aperta uma bola de praia entre os joelhos, e volte devagar, sem deixar as placas baterem.", "reg": "Costas no encosto. Comece com uma abertura que não incomode a virilha e aumente aos poucos, semana a semana."}, "Cadeira abdutora": {"im": "Abra como quem afasta com os joelhos duas portas de vaivém, e segure 1 segundo aberto.", "reg": "Costas no encosto, quadril colado no banco. Comece com as pernas juntas e abra até onde não force o quadril."}};
 
 /* ================= FIGURA MUSCULAR ================= */
 const F_BASE='#E6E1D8', F_SEC='#EDB9A6', F_PRI='#A8322A', F_TR='#B9B1A4';
@@ -1051,6 +1065,21 @@ try{
   if(!localStorage.getItem(K_V71)){
     if(!ciclo || ciclo > '2026-10-06'){ ciclo = '2026-10-06'; localStorage.setItem(K_CICLO, ciclo); }
     localStorage.setItem(K_V71, '1');
+  }
+}catch(e){}
+/* v7.2: adutora e abdutora viraram dois exercícios no Inferior 1; o que estava digitado e não salvo é realinhado. */
+const K_V72 = 'lib_treino_v72_migrado';
+function migrarI1v72(at){
+  if(!at || !at.I1) return;
+  const novo = {};
+  Object.keys(at.I1).forEach(k => { const n = Number(k); novo[n >= 4 ? n + 1 : n] = at.I1[k]; });
+  at.I1 = novo;
+}
+try{
+  if(!localStorage.getItem(K_V72)){
+    migrarI1v72(atual);
+    localStorage.setItem(K_ATUAL, JSON.stringify(atual));
+    localStorage.setItem(K_V72, '1');
   }
 }catch(e){}
 const esc = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -1528,7 +1557,7 @@ async function baixar(texto, nome, tipo){
 async function exportarBackup(){
   const pacote = {
     aplicativo: 'Treino Liberato',
-    versao: 7.1,
+    versao: 7.2,
     gerado_em: new Date().toISOString(),
     em_andamento: atual,
     historico: hist,
@@ -1601,6 +1630,7 @@ function importarArquivo(input){
       if(!confirm('Restaurar ' + p.historico.length + ' sessão(ões) deste backup? O conteúdo atual será substituído.')) return;
       hist = p.historico;
       atual = p.em_andamento || {};
+      if(!(p.versao >= 7.2)) migrarI1v72(atual);
       if(!(p.versao >= 6)) migrarTudo();
       if(Array.isArray(p.corpo)){ corpo = p.corpo; gravar(K_CORPO, corpo); }
       if(p.ciclo){ ciclo = p.ciclo; try{ localStorage.setItem(K_CICLO, ciclo); }catch(e){} }
